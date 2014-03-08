@@ -33,14 +33,16 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
-use Moo 1.000008;
+use Moo 1.000008 qw( has );
 use Path::Tiny qw( path );
+use App::cpanm::meta::checker::State;
+use Config qw();
+use Getopt::Long;
 
 has 'search_dirs' => (
     is      => 'ro',
     lazy    => 1,
     builder => sub {
-        require Config;
         my @paths;
         push @paths,
           path( $Config::Config{sitelibexp} )
@@ -98,7 +100,6 @@ has 'mode' => (
 
 sub check_path {
     my ( $self, $path ) = @_;
-    require App::cpanm::meta::checker::State;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
     return $state->check_path($path);
 }
@@ -113,7 +114,6 @@ sub check_path {
 
 sub check_release {
     my ( $self, $releasename ) = @_;
-    require App::cpanm::meta::checker::State;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
     for my $dir ( $self->all_search_dir_child($releasename) ) {
         $state->check_path($dir);
@@ -133,7 +133,6 @@ sub check_release {
 
 sub check_distname {
     my ( $self, $distname ) = @_;
-    require App::cpanm::meta::checker::State;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
     for my $dir (
@@ -155,7 +154,7 @@ sub check_distname {
 
 sub check_all {
     my ($self) = @_;
-    require App::cpanm::meta::checker::State;
+
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
     for my $dir ( $self->all_search_dir_children ) {
         $state->check_path($dir);
@@ -176,7 +175,6 @@ sub new_from_command {
 
     my $config = {};
 
-    require Getopt::Long;
     Getopt::Long::Configure('auto_version','auto_help');
 
     Getopt::Long::GetOptions(

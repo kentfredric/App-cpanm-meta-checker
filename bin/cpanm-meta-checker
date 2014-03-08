@@ -1,10 +1,4 @@
 #!perl
-
-# Bash Invocation guard
-eval "echo This script requires Perl";
-exit 1
-  if 0;
-
 use strict;
 use warnings;
 

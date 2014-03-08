@@ -479,10 +479,6 @@ x_Dist_Zilla:
       name: '@Author::KENTNL/::Role::BundleDeps'
       version: '5.013'
     -
-      class: Dist::Zilla::Plugin::Run::AfterBuild
-      name: Run::AfterBuild
-      version: '0.021'
-    -
       class: Dist::Zilla::Plugin::Prereqs
       config:
         Dist::Zilla::Plugin::Prereqs:
