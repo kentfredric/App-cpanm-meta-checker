@@ -29,6 +29,7 @@ provides:
     file: lib/App/cpanm/meta/checker/State/Duplicates.pm
     version: '0.001000'
 requires:
+  Getopt::Long: '0'
   Moo: '1.000008'
   Path::Tiny: '0'
   perl: '5.008'
@@ -86,6 +87,7 @@ x_BuiltWith:
     Dist::Zilla::PluginBundle::Author::KENTNL::Lite: 1.7.2
     ExtUtils::MakeMaker: 6.67_02
     File::Spec::Functions: '3.47'
+    Getopt::Long: '2.42'
     List::Util: '1.38'
     Module::Build: '0.4205'
     Moo: '1.004002'
@@ -466,6 +468,10 @@ x_Dist_Zilla:
           type: requires
       name: '@Author::KENTNL/::Role::BundleDeps'
       version: '5.013'
+    -
+      class: Dist::Zilla::Plugin::FatPacker
+      name: FatPacker
+      version: '1.100841'
     -
       class: Dist::Zilla::Plugin::Prereqs
       config:

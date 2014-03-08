@@ -111,6 +111,7 @@ my $static_prereqs = do { my $x = {
                     },
        'runtime' => {
                       'requires' => {
+                                      'Getopt::Long' => '0',
                                       'Moo' => '1.000008',
                                       'Path::Tiny' => '0',
                                       'perl' => '5.008',

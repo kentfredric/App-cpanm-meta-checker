@@ -24,6 +24,7 @@ my %module_build_args = (
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
+    "Getopt::Long" => 0,
     "Moo" => "1.000008",
     "Path::Tiny" => 0,
     "perl" => "5.008",

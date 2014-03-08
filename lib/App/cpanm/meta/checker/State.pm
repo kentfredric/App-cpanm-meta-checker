@@ -29,14 +29,13 @@ has 'list_fd' => (
 );
 
 has '_duplicates' => (
-    is      => ro  =>,
+    is      => ro =>,
     lazy    => 1,
-    builder => sub { 
+    builder => sub {
         require App::cpanm::meta::checker::State::Duplicates;
         return App::cpanm::meta::checker::State::Duplicates->new();
     },
 );
-
 
 sub x_test_list {
     my ( $self, $path, $state ) = @_;
@@ -62,7 +61,7 @@ sub x_test_list_duplicates {
 
     $self->_duplicates->seen_dist_version( $dist, $version );
 
-    return unless $self->_duplicates->has_duplicates( $dist );
+    return unless $self->_duplicates->has_duplicates($dist);
 
     my $fmt = "duplicate:%s-%s\n";
 
@@ -71,7 +70,8 @@ sub x_test_list_duplicates {
         return;
     }
 
-    $self->list_fd->printf( $fmt, $dist, $_ ) for $self->_duplicates->duplicate_versions($dist);
+    $self->list_fd->printf( $fmt, $dist, $_ )
+      for $self->_duplicates->duplicate_versions($dist);
 
     $self->_duplicates->reported_duplicates( $dist, 1 );
 

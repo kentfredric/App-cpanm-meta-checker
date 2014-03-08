@@ -82,6 +82,12 @@ has 'sorted' => (
     builder => sub { return; }
 );
 
+has 'mode' => (
+    is => ro =>,
+    lazy => 1,
+    builder => sub { return 'all' },
+);
+
 
 
 
@@ -157,6 +163,30 @@ sub check_all {
     return;
 }
 
+
+sub run_command {
+    my ( $self ) = @_;
+    if ( $self->mode eq 'all' ) {
+        return $self->check_all;
+    }
+    return;
+}
+sub new_from_command {
+    my ( $class , %defaults ) = @_;
+
+    my $config = {};
+
+    require Getopt::Long;
+    Getopt::Long::Configure('auto_version','auto_help');
+
+    Getopt::Long::GetOptions(
+        's|sort!' => \$config->{sort},
+        'A|all!'  => sub { $config->{mode} = 'all' },
+        'verbose!' => \$config->{verbose},
+    );
+
+    return $class->new( { %defaults, %{$config}} );
+}
 1;
 
 __END__
