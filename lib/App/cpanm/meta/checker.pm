@@ -33,14 +33,16 @@ is also a prototype for a toolchain standard checker.
 
 =cut
 
-use Moo 1.000008;
+use Moo 1.000008 qw( has );
 use Path::Tiny qw( path );
+use App::cpanm::meta::checker::State;
+use Config qw();
+use Getopt::Long;
 
 has 'search_dirs' => (
     is      => 'ro',
     lazy    => 1,
     builder => sub {
-        require Config;
         my @paths;
         push @paths,
           path( $Config::Config{sitelibexp} )
@@ -92,7 +94,6 @@ Read the content from C<./foo/bar/baz> and check its consistency.
 
 sub check_path {
     my ( $self, $path ) = @_;
-    require App::cpanm::meta::checker::State;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
     return $state->check_path($path);
 }
@@ -107,7 +108,6 @@ Read the metadata for the exact release stated and perform checks on it.
 
 sub check_release {
     my ( $self, $releasename ) = @_;
-    require App::cpanm::meta::checker::State;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
     for my $dir ( $self->all_search_dir_child($releasename) ) {
         $state->check_path($dir);
@@ -127,7 +127,6 @@ Note: There may be directories residual from past installs.
 
 sub check_distname {
     my ( $self, $distname ) = @_;
-    require App::cpanm::meta::checker::State;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
     for my $dir (
@@ -149,7 +148,7 @@ Check metadata for all installed dists.
 
 sub check_all {
     my ($self) = @_;
-    require App::cpanm::meta::checker::State;
+
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
     for my $dir ( $self->all_search_dir_children ) {
         $state->check_path($dir);

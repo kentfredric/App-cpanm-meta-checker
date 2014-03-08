@@ -10,6 +10,7 @@ package App::cpanm::meta::checker::State;
 # AUTHORITY
 
 use Moo qw(has);
+use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
 has 'tests' => (
@@ -32,7 +33,6 @@ has '_duplicates' => (
     is      => ro =>,
     lazy    => 1,
     builder => sub {
-        require App::cpanm::meta::checker::State::Duplicates;
         return App::cpanm::meta::checker::State::Duplicates->new();
     },
 );
