@@ -8,6 +8,7 @@ META.json
 META.yml
 README
 bin/cpanm-meta-checker
+bin/cpanm-meta-checker.fatpack
 dist.ini
 lib/App/cpanm/meta/checker.pm
 lib/App/cpanm/meta/checker/State.pm
