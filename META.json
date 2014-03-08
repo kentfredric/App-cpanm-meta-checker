@@ -224,6 +224,11 @@
             "version" : "0.04000002"
          },
          {
+            "class" : "Dist::Zilla::Plugin::PruneFiles",
+            "name" : "PruneFiles",
+            "version" : "5.013"
+         },
+         {
             "class" : "Dist::Zilla::Plugin::Git::NextVersion::Sanitized",
             "config" : {
                "Dist::Zilla::Role::Version::Sanitize" : {
