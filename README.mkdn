@@ -1,0 +1,68 @@
+# NAME
+
+App::cpanm::meta::checker - Verify and sanity check your installation verses cpanm metafiles
+
+# VERSION
+
+version 0.001000
+
+# SYNOPSIS
+
+    cpanm-meta-checker --all --verbose
+
+# DESCRIPTION
+
+`cpanm` installs a few auxilary files:
+
+    $SITELIB/.meta/DISTNAME-DISTVERSION/MYMETA.json
+    $SITELIB/.meta/DISTNAME-DISTVERSION/install.json
+
+These files describe several things, such as dependencies
+declared by upstream, and sniffed extra context.
+
+This tool exists to read those files, and verify that their dependencies
+are still holding true, that no new conflicting dependencies have
+been installed and are silently sitting there broken.
+
+Also, as `cpanm`'s auxilary files are really a prototype
+for what may eventually become a toolchain standard, this tool
+is also a prototype for a toolchain standard checker.
+
+# METHODS
+
+## `check_path`
+
+    ->check_path('./foo/bar/baz');
+
+Read the content from `./foo/bar/baz` and check its consistency.
+
+## `check_release`
+
+    ->check_release('Moose-2.000000')
+
+Read the metadata for the exact release stated and perform checks on it.
+
+## `check_distname`
+
+    ->check_distname('Moose')
+
+Check metadata for any `dist(s)` named `Moose`
+
+Note: There may be directories residual from past installs.
+
+## `check_all`
+
+    ->check_all
+
+Check metadata for all installed dists.
+
+# AUTHOR
+
+Kent Fredric <kentfredric@gmail.com>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
