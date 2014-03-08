@@ -1,0 +1,9 @@
+#!perl
+use strict;
+use warnings;
+
+use App::cpanm::meta::checker;
+my $app = App::cpanm::meta::checker->new_from_command;
+$app->run_command();
+exit 0;
+
