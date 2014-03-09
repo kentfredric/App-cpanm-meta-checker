@@ -10,6 +10,8 @@ package App::cpanm::meta::checker::State;
 # AUTHORITY
 
 use Moo qw(has);
+use CPAN::Meta;
+use CPAN::Meta::Check;
 use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
@@ -38,24 +40,24 @@ has '_duplicates' => (
 );
 
 sub x_test_list {
-    my ( $self, $path, $state ) = @_;
+    my ( $self, $path, ) = @_;
     $self->list_fd->printf( "list:%s\n", path($path)->basename );
 }
 
 sub x_test_list_nonempty {
-    my ( $self, $path, $state ) = @_;
+    my ( $self, $path ) = @_;
     return unless path($path)->children;
-    $self->list_fd->printf( "nonempty:%s\n", path($path)->basename );
+    $self->list_fd->printf( "list_nonempty:%s\n", path($path)->basename );
 }
 
 sub x_test_list_empty {
-    my ( $self, $path, $state ) = @_;
+    my ( $self, $path ) = @_;
     return if path($path)->children;
-    $self->list_fd->printf( "empty:%s\n", path($path)->basename );
+    $self->list_fd->printf( "list_empty:%s\n", path($path)->basename );
 }
 
 sub x_test_list_duplicates {
-    my ( $self, $path, $state ) = @_;
+    my ( $self, $path ) = @_;
     my $basename = path($path)->basename;
     my ( $dist, $version ) = $basename =~ /\A(.*)-([^-]+(?:-TRIAL)?)\z/;
 
@@ -63,7 +65,7 @@ sub x_test_list_duplicates {
 
     return unless $self->_duplicates->has_duplicates($dist);
 
-    my $fmt = "duplicate:%s-%s\n";
+    my $fmt = "list_duplicates:%s-%s\n";
 
     if ( $self->_duplicates->reported_duplicates($dist) ) {
         printf $fmt, $dist, $version;
@@ -76,6 +78,31 @@ sub x_test_list_duplicates {
     $self->_duplicates->reported_duplicates( $dist, 1 );
 
     return;
+}
+
+sub _cache_cpan_meta {
+    my ( $self, $path, $state ) = @_;
+    return $state->{cpan_meta} if defined $state->{cpan_meta};
+    return ( $state->{cpan_meta} =
+          CPAN::Meta->load_file( path($path)->child('MYMETA.json') ) );
+}
+
+sub _cpan_meta_check_phase_type {
+    my ( $self, $path, $state, $label, $phase, $type ) = @_;
+    my $meta = $self->_cache_cpan_meta( $path, $state );
+    for
+      my $dep ( CPAN::Meta::Check::verify_dependencies( $meta, $phase, $type ) )
+    {
+        $self->list_fd->printf( "%s:%s:%s\n", $label, path($path)->basename,
+            $dep );
+    }
+    return;
+}
+
+sub x_test_check_runtime_requires {
+    my ( $self, $path, $state ) = @_;
+    $self->_cpan_meta_check_phase_type( $path, $state, 'check_runtime_requires',
+        'runtime', 'requires' );
 }
 
 =method C<check_path>

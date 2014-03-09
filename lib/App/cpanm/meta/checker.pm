@@ -33,6 +33,33 @@ is also a prototype for a toolchain standard checker.
 
 =cut
 
+=head1 CURRENT TEST SET
+
+=head2 C<list_duplicates>
+
+For now, it includes output about every instance where there are more than one
+set of metafiles.
+
+This occurs, because installing a new version of something doesn't purge the data ( or all the files ) of the old one.
+
+=head2 C<list>
+
+This lists all dists seen.
+
+=head2 C<list_empty>
+
+This lists dists that have a directory for a meta file, but have no meta file in them. ( Rare )
+
+=head2 C<list_nonempty>
+
+This lists dists that have metafiles.
+
+=head2 C<check_runtime_requires>
+
+This reports cases where metadata's declarations of C<runtime> requirements are unsatisfied.
+
+=cut
+
 use Moo 1.000008 qw( has );
 use Path::Tiny qw( path );
 use App::cpanm::meta::checker::State;
@@ -74,7 +101,7 @@ has 'tests' => (
     is      => ro =>,
     lazy    => 1,
     builder => sub {
-        return [ 'list_empty', 'list_duplicates', ];
+        return [ 'list_empty', 'list_duplicates', 'check_runtime_requires' ];
     },
 );
 
@@ -178,10 +205,18 @@ sub new_from_command {
     Getopt::Long::Configure( 'auto_version', 'auto_help' );
 
     Getopt::Long::GetOptions(
-        's|sort!'  => \$config->{sort},
+        's|sort!'  => \$config->{sorted},
         'A|all!'   => sub { $config->{mode} = 'all' },
         'verbose!' => \$config->{verbose},
-    );
+        'test=s'   => sub {
+            if (
+                not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) )
+            {
+                die "No such test $_[1]";
+            }
+            push @{ $config->{tests} }, $_[1];
+        },
+    ) or die Getopt::Long::HelpMessage;
 
     return $class->new( { %defaults, %{$config} } );
 }
