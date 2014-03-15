@@ -13,7 +13,7 @@ my %module_build_args = (
   "configure_requires" => {
     "Module::Build" => "0.4205"
   },
-  "dist_abstract" => "Verify and sanity check your installation verses cpanm metafiles",
+  "dist_abstract" => "Verify and sanity check your installation verses cpanm meta files",
   "dist_author" => [
     "Kent Fredric <kentfredric\@gmail.com>"
   ],

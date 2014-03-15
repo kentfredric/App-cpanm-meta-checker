@@ -1,5 +1,5 @@
 ---
-abstract: 'Verify and sanity check your installation verses cpanm metafiles'
+abstract: 'Verify and sanity check your installation verses cpanm meta files'
 author:
   - 'Kent Fredric <kentfredric@gmail.com>'
 build_requires:
