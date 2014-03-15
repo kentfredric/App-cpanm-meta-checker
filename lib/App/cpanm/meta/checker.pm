@@ -80,10 +80,11 @@ For instance:
 
 =cut
 
-use Moo 1.000008 qw( has );
+use Moo 1.000008 ('has');
 use Path::Tiny qw( path );
 use App::cpanm::meta::checker::State;
-use Config qw();
+use Config qw(%Config);
+use Carp qw(croak);
 use Getopt::Long;
 
 has 'search_dirs' => (
@@ -92,29 +93,30 @@ has 'search_dirs' => (
     builder => sub {
         my @paths;
         push @paths,
-          path( $Config::Config{sitelibexp} )
-          ->child( $Config::Config{archname} )->child('.meta');
+          path( $Config{sitelibexp} )->child( $Config{archname} )
+          ->child('.meta');
         return \@paths;
     },
 );
 
 sub all_search_dirs {
-    return @{ $_[0]->search_dirs };
+    my ($self) = @_;
+    return @{ $self->search_dirs };
 }
 
 sub all_search_dir_child {
     my ( $self, @childpath ) = @_;
     my @answers = grep { -e $_ }
-      map { path($_)->child(@childpath) } @{ $_[0]->search_dirs };
+      map { path($_)->child(@childpath) } @{ $self->search_dirs };
     return @answers unless $self->sorted;
-    return ( my @sorted = sort @answers );
+    return @{ [ sort @answers ] };
 }
 
 sub all_search_dir_children {
     my ($self) = @_;
-    my @answers = map { path($_)->children } @{ $_[0]->search_dirs };
+    my @answers = map { path($_)->children } @{ $self->search_dirs };
     return @answers unless $self->sorted;
-    return ( my @sorted = sort @answers );
+    return @{ [ sort @answers ] };
 }
 
 has 'tests' => (
@@ -132,7 +134,7 @@ has 'tests' => (
 has 'sorted' => (
     is      => ro  =>,
     lazy    => 1,
-    builder => sub { return; }
+    builder => sub { return; },
 );
 
 has 'mode' => (
@@ -186,8 +188,18 @@ sub check_distname {
     my ( $self, $distname ) = @_;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
-    for my $dir (
-        grep { path($_)->basename =~ /\A\Q$distname\E-[^-]+(?:TRIAL)?\z/ }
+    ## no critic (Compatibility::PerlMinimumVersionAndWhy)
+    # _Pulp__5010_qr_m_propagate_properly
+    my $distname_re = qr{
+       \A
+       \Q$distname\E
+       -
+       [^-]+
+       (?:TRIAL)?
+       \z
+    }msx;
+
+    for my $dir ( grep { path($_)->basename =~ $distname_re }
         $self->all_search_dir_children )
     {
         $state->check_path($dir);
@@ -215,9 +227,7 @@ sub check_all {
 
 sub run_command {
     my ($self) = @_;
-    if ( $self->mode eq 'all' ) {
-        return $self->check_all;
-    }
+    return $self->check_all if 'all' eq $self->mode;
     return;
 }
 
