@@ -21,7 +21,7 @@ DESCRIPTION
     are still holding true, that no new conflicting dependencies have been
     installed and are silently sitting there broken.
 
-    Also, as "cpanm"'s auxilary files are really a prototype for what may
+    Also, as "cpanm"'s auxiliary files are really a prototype for what may
     eventually become a tool-chain standard, this tool is also a prototype
     for a tool-chain standard checker.
 
@@ -34,19 +34,20 @@ METHODS
   "check_release"
         ->check_release('Moose-2.000000')
 
-    Read the metadata for the exact release stated and perform checks on it.
+    Read the meta-data for the exact release stated and perform checks on
+    it.
 
   "check_distname"
         ->check_distname('Moose')
 
-    Check metadata for any dist(s) named "Moose"
+    Check meta-data for any dist(s) named "Moose"
 
     Note: There may be directories residual from past installs.
 
   "check_all"
         ->check_all
 
-    Check metadata for all installed distributions.
+    Check meta-data for all installed distributions.
 
 DEFAULT TEST SET
         list_empty
@@ -68,11 +69,11 @@ AVAILABLE TEST SET
     This lists all distributions seen.
 
   "list_empty"
-    This lists dists that have a directory for a meta file, but have no meta
-    file in them. ( Rare )
+    This lists distributions that have a directory for a meta file, but have
+    no meta file in them. ( Rare )
 
   "list_nonempty"
-    This lists dists that have meta files.
+    This lists distributions that have meta files.
 
   "check_PHASE_TYPE"
     There is a check for each combination of:

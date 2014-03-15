@@ -286,7 +286,7 @@ This tool exists to read those files, and verify that their dependencies
 are still holding true, that no new conflicting dependencies have
 been installed and are silently sitting there broken.
 
-Also, as C<cpanm>'s auxilary files are really a prototype
+Also, as C<cpanm>'s auxiliary files are really a prototype
 for what may eventually become a tool-chain standard, this tool
 is also a prototype for a tool-chain standard checker.
 
@@ -302,13 +302,13 @@ Read the content from C<./foo/bar/baz> and check its consistency.
 
     ->check_release('Moose-2.000000')
 
-Read the metadata for the exact release stated and perform checks on it.
+Read the meta-data for the exact release stated and perform checks on it.
 
 =head2 C<check_distname>
 
     ->check_distname('Moose')
 
-Check metadata for any C<dist(s)> named C<Moose>
+Check meta-data for any C<dist(s)> named C<Moose>
 
 Note: There may be directories residual from past installs.
 
@@ -316,7 +316,7 @@ Note: There may be directories residual from past installs.
 
     ->check_all
 
-Check metadata for all installed distributions.
+Check meta-data for all installed distributions.
 
 =head1 DEFAULT TEST SET
 
@@ -342,11 +342,11 @@ This lists all distributions seen.
 
 =head2 C<list_empty>
 
-This lists dists that have a directory for a meta file, but have no meta file in them. ( Rare )
+This lists distributions that have a directory for a meta file, but have no meta file in them. ( Rare )
 
 =head2 C<list_nonempty>
 
-This lists dists that have meta files.
+This lists distributions that have meta files.
 
 =head2 C<check_PHASE_TYPE>
 
