@@ -1,6 +1,6 @@
 # NAME
 
-App::cpanm::meta::checker - Verify and sanity check your installation verses cpanm metafiles
+App::cpanm::meta::checker - Verify and sanity check your installation verses cpanm meta files
 
 # VERSION
 
@@ -12,7 +12,7 @@ version 0.001000
 
 # DESCRIPTION
 
-`cpanm` installs a few auxilary files:
+`cpanm` installs a few auxiliary files:
 
     $SITELIB/.meta/DISTNAME-DISTVERSION/MYMETA.json
     $SITELIB/.meta/DISTNAME-DISTVERSION/install.json
@@ -24,9 +24,9 @@ This tool exists to read those files, and verify that their dependencies
 are still holding true, that no new conflicting dependencies have
 been installed and are silently sitting there broken.
 
-Also, as `cpanm`'s auxilary files are really a prototype
-for what may eventually become a toolchain standard, this tool
-is also a prototype for a toolchain standard checker.
+Also, as `cpanm`'s auxiliary files are really a prototype
+for what may eventually become a tool-chain standard, this tool
+is also a prototype for a tool-chain standard checker.
 
 # METHODS
 
@@ -40,13 +40,13 @@ Read the content from `./foo/bar/baz` and check its consistency.
 
     ->check_release('Moose-2.000000')
 
-Read the metadata for the exact release stated and perform checks on it.
+Read the meta-data for the exact release stated and perform checks on it.
 
 ## `check_distname`
 
     ->check_distname('Moose')
 
-Check metadata for any `dist(s)` named `Moose`
+Check meta-data for any `dist(s)` named `Moose`
 
 Note: There may be directories residual from past installs.
 
@@ -54,7 +54,51 @@ Note: There may be directories residual from past installs.
 
     ->check_all
 
-Check metadata for all installed dists.
+Check meta-data for all installed distributions.
+
+# DEFAULT TEST SET
+
+    list_empty
+    list_duplicates
+    check_runtime_requires
+    check_runtime_recommends
+    check_runtime_suggests
+    check_runtime_conflicts
+
+# AVAILABLE TEST SET
+
+## `list_duplicates`
+
+For now, it includes output about every instance where there are more than one
+set of meta files.
+
+This occurs, because installing a new version of something doesn't purge the data ( or all the files ) of the old one.
+
+## `list`
+
+This lists all distributions seen.
+
+## `list_empty`
+
+This lists distributions that have a directory for a meta file, but have no meta file in them. ( Rare )
+
+## `list_nonempty`
+
+This lists distributions that have meta files.
+
+## `check_PHASE_TYPE`
+
+There is a check for each combination of:
+
+    PHASE: configure build runtime test develop
+    TYPE:  requires recommends suggests conflicts
+
+Each checks the meta-data for conforming dependencies.
+
+For instance:
+
+    check_runtime_requires # Report Runtime requirements that are unsatisfied
+    check_develop_requires # Report Develop requiremetns that are unsatisifed
 
 # AUTHOR
 

@@ -5,7 +5,7 @@ use utf8;
 
 package App::cpanm::meta::checker;
 
-# ABSTRACT: Verify and sanity check your installation verses cpanm metafiles
+# ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
 # AUTHORITY
 
@@ -15,7 +15,7 @@ package App::cpanm::meta::checker;
 
 =head1 DESCRIPTION
 
-C<cpanm> installs a few auxilary files:
+C<cpanm> installs a few auxiliary files:
 
     $SITELIB/.meta/DISTNAME-DISTVERSION/MYMETA.json
     $SITELIB/.meta/DISTNAME-DISTVERSION/install.json
@@ -27,36 +27,56 @@ This tool exists to read those files, and verify that their dependencies
 are still holding true, that no new conflicting dependencies have
 been installed and are silently sitting there broken.
 
-Also, as C<cpanm>'s auxilary files are really a prototype
-for what may eventually become a toolchain standard, this tool
-is also a prototype for a toolchain standard checker.
+Also, as C<cpanm>'s auxiliary files are really a prototype
+for what may eventually become a tool-chain standard, this tool
+is also a prototype for a tool-chain standard checker.
 
 =cut
 
-=head1 CURRENT TEST SET
+=head1 DEFAULT TEST SET
+
+    list_empty
+    list_duplicates
+    check_runtime_requires
+    check_runtime_recommends
+    check_runtime_suggests
+    check_runtime_conflicts
+
+=head1 AVAILABLE TEST SET
 
 =head2 C<list_duplicates>
 
 For now, it includes output about every instance where there are more than one
-set of metafiles.
+set of meta files.
 
 This occurs, because installing a new version of something doesn't purge the data ( or all the files ) of the old one.
 
 =head2 C<list>
 
-This lists all dists seen.
+This lists all distributions seen.
 
 =head2 C<list_empty>
 
-This lists dists that have a directory for a meta file, but have no meta file in them. ( Rare )
+This lists distributions that have a directory for a meta file, but have no meta file in them. ( Rare )
 
 =head2 C<list_nonempty>
 
-This lists dists that have metafiles.
+This lists distributions that have meta files.
 
-=head2 C<check_runtime_requires>
+=head2 C<check_PHASE_TYPE>
 
-This reports cases where metadata's declarations of C<runtime> requirements are unsatisfied.
+There is a check for each combination of:
+
+    PHASE: configure build runtime test develop
+    TYPE:  requires recommends suggests conflicts
+
+Each checks the meta-data for conforming dependencies.
+
+For instance:
+
+    check_runtime_requires # Report Runtime requirements that are unsatisfied
+    check_develop_requires # Report Develop requiremetns that are unsatisifed
+
 
 =cut
 
@@ -139,7 +159,7 @@ sub check_path {
 
     ->check_release('Moose-2.000000')
 
-Read the metadata for the exact release stated and perform checks on it.
+Read the meta-data for the exact release stated and perform checks on it.
 
 =cut
 
@@ -156,7 +176,7 @@ sub check_release {
 
     ->check_distname('Moose')
 
-Check metadata for any C<dist(s)> named C<Moose>
+Check meta-data for any C<dist(s)> named C<Moose>
 
 Note: There may be directories residual from past installs.
 
@@ -179,7 +199,7 @@ sub check_distname {
 
     ->check_all
 
-Check metadata for all installed dists.
+Check meta-data for all installed distributions.
 
 =cut
 
