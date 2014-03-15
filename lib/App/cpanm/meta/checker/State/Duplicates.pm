@@ -5,11 +5,11 @@ use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates;
 
-# ABSTRACT: Data tracking for duplicate distribution metadata
+# ABSTRACT: Data tracking for duplicate distribution meta-data
 
 # AUTHORITY
 
-use Moo;
+use Moo qw( has );
 
 has 'dists' => (
     is      => ro  =>,
@@ -23,7 +23,7 @@ sub seen_dist_version {
         $self->dists->{$dist} =
           App::cpanm::meta::checker::State::Duplicate::Dist->new();
     }
-    $self->dists->{$dist}->seen_version($version);
+    return $self->dists->{$dist}->seen_version($version);
 }
 
 sub has_duplicates {
@@ -33,9 +33,9 @@ sub has_duplicates {
 }
 
 sub reported_duplicates {
-    my ( $self, $dist, $set ) = @_;
+    my ( $self, $dist, $set_reported ) = @_;
     return unless exists $self->dists->{$dist};
-    return $self->dists->{$dist}->reported($set) if @_ > 2;
+    return $self->dists->{$dist}->reported($set_reported) if @_ > 2;
     return $self->dists->{$dist}->reported();
 }
 
@@ -50,7 +50,7 @@ no Moo;
 package    ## hide
   App::cpanm::meta::checker::State::Duplicate::Dist;
 
-use Moo;
+use Moo qw( has );
 
 has 'reported' => (
     is      => rw  =>,
@@ -72,6 +72,7 @@ sub has_duplicates {
 sub seen_version {
     my ( $self, $version ) = @_;
     $self->versions->{$version} = 1;
+    return;
 }
 
 sub duplicate_versions {
