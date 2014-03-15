@@ -79,20 +79,21 @@ has 'search_dirs' => (
 );
 
 sub all_search_dirs {
-    return @{ $_[0]->search_dirs };
+    my ($self) = @_;
+    return @{ $self->search_dirs };
 }
 
 sub all_search_dir_child {
     my ( $self, @childpath ) = @_;
     my @answers = grep { -e $_ }
-      map { path($_)->child(@childpath) } @{ $_[0]->search_dirs };
+      map { path($_)->child(@childpath) } @{ $self->search_dirs };
     return @answers unless $self->sorted;
     return ( my @sorted = sort @answers );
 }
 
 sub all_search_dir_children {
     my ($self) = @_;
-    my @answers = map { path($_)->children } @{ $_[0]->search_dirs };
+    my @answers = map { path($_)->children } @{ $self->search_dirs };
     return @answers unless $self->sorted;
     return ( my @sorted = sort @answers );
 }
@@ -101,11 +102,11 @@ has 'tests' => (
     is      => ro =>,
     lazy    => 1,
     builder => sub {
-        return {
-            map { $_ => 1 } 'list_empty', 'list_duplicates',
+        return [
+            'list_empty',             'list_duplicates',
             'check_runtime_requires', 'check_runtime_recommends',
             'check_runtime_suggests', 'check_runtime_conflicts',
-        };
+        ];
     },
 );
 

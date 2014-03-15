@@ -23,7 +23,8 @@ for my $var (@stopwords) {
 #  'Subroutines::ProhibitCallsToUndeclaredSubs' => ( 'exempt_subs' => 'String::Formatter::str_rf' ), );
 
 #$bundle->remove_policy('ErrorHandling::RequireCarping');
-#$bundle->remove_policy('NamingConventions::Capitalization');
+$bundle->remove_policy('NamingConventions::Capitalization');
+$bundle->remove_policy('Modules::ProhibitMultiplePackages');
 
 my $inf = $bundle->actionlist->get_inflated;
 

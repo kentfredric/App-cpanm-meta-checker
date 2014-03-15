@@ -9,7 +9,7 @@ $App::cpanm::meta::checker::State::Duplicates::VERSION = '0.001000';
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
-use Moo;
+use Moo qw( has );
 
 has 'dists' => (
     is      => ro  =>,
@@ -23,7 +23,7 @@ sub seen_dist_version {
         $self->dists->{$dist} =
           App::cpanm::meta::checker::State::Duplicate::Dist->new();
     }
-    $self->dists->{$dist}->seen_version($version);
+    return $self->dists->{$dist}->seen_version($version);
 }
 
 sub has_duplicates {
@@ -50,7 +50,7 @@ no Moo;
 package    ## hide
   App::cpanm::meta::checker::State::Duplicate::Dist;
 
-use Moo;
+use Moo qw( has );
 
 has 'reported' => (
     is      => rw  =>,
@@ -72,6 +72,7 @@ sub has_duplicates {
 sub seen_version {
     my ( $self, $version ) = @_;
     $self->versions->{$version} = 1;
+    return;
 }
 
 sub duplicate_versions {
