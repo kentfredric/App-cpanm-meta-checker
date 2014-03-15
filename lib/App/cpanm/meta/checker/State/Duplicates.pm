@@ -5,7 +5,7 @@ use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates;
 $App::cpanm::meta::checker::State::Duplicates::VERSION = '0.001000';
-# ABSTRACT: Data tracking for duplicate distribution metadata
+# ABSTRACT: Data tracking for duplicate distribution meta-data
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
@@ -33,9 +33,9 @@ sub has_duplicates {
 }
 
 sub reported_duplicates {
-    my ( $self, $dist, $set ) = @_;
+    my ( $self, $dist, $set_reported ) = @_;
     return unless exists $self->dists->{$dist};
-    return $self->dists->{$dist}->reported($set) if @_ > 2;
+    return $self->dists->{$dist}->reported($set_reported) if @_ > 2;
     return $self->dists->{$dist}->reported();
 }
 
@@ -90,7 +90,7 @@ __END__
 
 =head1 NAME
 
-App::cpanm::meta::checker::State::Duplicates - Data tracking for duplicate distribution metadata
+App::cpanm::meta::checker::State::Duplicates - Data tracking for duplicate distribution meta-data
 
 =head1 VERSION
 
