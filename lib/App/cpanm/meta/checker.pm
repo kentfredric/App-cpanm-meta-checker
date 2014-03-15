@@ -64,7 +64,7 @@ use Moo 1.000008 q();
 use Moo qw( has );
 use Path::Tiny qw( path );
 use App::cpanm::meta::checker::State;
-use Config qw();
+use Config qw(Config);
 use Carp qw(croak);
 use Getopt::Long;
 
@@ -74,8 +74,8 @@ has 'search_dirs' => (
     builder => sub {
         my @paths;
         push @paths,
-          path( $Config::Config{sitelibexp} )
-          ->child( $Config::Config{archname} )->child('.meta');
+          path( $Config{sitelibexp} )
+          ->child( $Config{archname} )->child('.meta');
         return \@paths;
     },
 );
