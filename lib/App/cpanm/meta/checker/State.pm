@@ -16,11 +16,9 @@ use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
 has 'tests' => (
-    is      => ro =>,
-    lazy    => 1,
-    builder => sub {
-        return [ 'list_empty', 'list_duplicates', ];
-    },
+    is       => ro =>,
+    lazy     => 1,
+    required => 1,
 );
 
 has 'list_fd' => (
