@@ -48,6 +48,28 @@ METHODS
 
     Check metadata for all installed dists.
 
+CURRENT TEST SET
+  "list_duplicates"
+    For now, it includes output about every instance where there are more
+    than one set of metafiles.
+
+    This occurs, because installing a new version of something doesn't purge
+    the data ( or all the files ) of the old one.
+
+  "list"
+    This lists all dists seen.
+
+  "list_empty"
+    This lists dists that have a directory for a meta file, but have no meta
+    file in them. ( Rare )
+
+  "list_nonempty"
+    This lists dists that have metafiles.
+
+  "check_runtime_requires"
+    This reports cases where metadata's declarations of "runtime"
+    requirements are unsatisfied.
+
 AUTHOR
     Kent Fredric <kentfredric@gmail.com>
 

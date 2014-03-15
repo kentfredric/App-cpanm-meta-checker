@@ -33,6 +33,33 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 use Moo 1.000008 qw( has );
 use Path::Tiny qw( path );
 use App::cpanm::meta::checker::State;
@@ -74,7 +101,11 @@ has 'tests' => (
     is      => ro =>,
     lazy    => 1,
     builder => sub {
-        return [ 'list_empty', 'list_duplicates', ];
+        return {
+            map { $_ => 1 } 'list_empty', 'list_duplicates',
+            'check_runtime_requires', 'check_runtime_recommends',
+            'check_runtime_suggests', 'check_runtime_conflicts',
+        };
     },
 );
 
@@ -85,8 +116,8 @@ has 'sorted' => (
 );
 
 has 'mode' => (
-    is => ro =>,
-    lazy => 1,
+    is      => ro  =>,
+    lazy    => 1,
     builder => sub { return 'all' },
 );
 
@@ -162,28 +193,43 @@ sub check_all {
     return;
 }
 
-
 sub run_command {
-    my ( $self ) = @_;
+    my ($self) = @_;
     if ( $self->mode eq 'all' ) {
         return $self->check_all;
     }
     return;
 }
+
 sub new_from_command {
-    my ( $class , %defaults ) = @_;
+    my ( $class, %defaults ) = @_;
 
     my $config = {};
+    my $verbose;
 
-    Getopt::Long::Configure('auto_version','auto_help');
+    Getopt::Long::Configure( 'auto_version', 'auto_help' );
 
     Getopt::Long::GetOptions(
-        's|sort!' => \$config->{sort},
-        'A|all!'  => sub { $config->{mode} = 'all' },
-        'verbose!' => \$config->{verbose},
-    );
+        's|sort!'  => \$config->{sorted},
+        'A|all!'   => sub { $config->{mode} = 'all' },
+        'verbose!' => sub {
+            $verbose = $_[0];
+        },
+        'test=s' => sub {
+            if (
+                not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) )
+            {
+                die "No such test $_[1]";
+            }
+            push @{ $config->{tests} }, $_[1];
+        },
+    ) or die Getopt::Long::HelpMessage;
 
-    return $class->new( { %defaults, %{$config}} );
+    my $obj = $class->new( { %defaults, %{$config} } );
+    if ($verbose) {
+        unshift @{ $obj->tests }, 'list';
+    }
+    return $obj;
 }
 1;
 
@@ -250,6 +296,31 @@ Note: There may be directories residual from past installs.
     ->check_all
 
 Check metadata for all installed dists.
+
+=head1 CURRENT TEST SET
+
+=head2 C<list_duplicates>
+
+For now, it includes output about every instance where there are more than one
+set of metafiles.
+
+This occurs, because installing a new version of something doesn't purge the data ( or all the files ) of the old one.
+
+=head2 C<list>
+
+This lists all dists seen.
+
+=head2 C<list_empty>
+
+This lists dists that have a directory for a meta file, but have no meta file in them. ( Rare )
+
+=head2 C<list_nonempty>
+
+This lists dists that have metafiles.
+
+=head2 C<check_runtime_requires>
+
+This reports cases where metadata's declarations of C<runtime> requirements are unsatisfied.
 
 =head1 AUTHOR
 

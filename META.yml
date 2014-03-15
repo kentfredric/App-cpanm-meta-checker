@@ -12,7 +12,7 @@ build_requires:
 configure_requires:
   Module::Build: '0.4205'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380'
+generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,6 +29,8 @@ provides:
     file: lib/App/cpanm/meta/checker/State/Duplicates.pm
     version: '0.001000'
 requires:
+  CPAN::Meta: '0'
+  CPAN::Meta::Check: '0'
   Getopt::Long: '0'
   Moo: '1.000008'
   Path::Tiny: '0'
@@ -39,7 +41,8 @@ requires:
 version: '0.001000'
 x_BuiltWith:
   modules:
-    CPAN::Meta: '2.133380'
+    CPAN::Meta: '2.140640'
+    CPAN::Meta::Check: '0.008'
     CPAN::Meta::Requirements: '2.125'
     Dist::Zilla::Plugin::Authority: '1.006'
     Dist::Zilla::Plugin::AutoPrereqs: '5.013'
@@ -85,7 +88,7 @@ x_BuiltWith:
     Dist::Zilla::Plugin::UploadToCPAN: '5.013'
     Dist::Zilla::PluginBundle::Author::KENTNL: '2.012000'
     Dist::Zilla::PluginBundle::Author::KENTNL::Lite: 1.7.2
-    ExtUtils::MakeMaker: 6.67_02
+    ExtUtils::MakeMaker: '6.90'
     File::Spec::Functions: '3.47'
     Getopt::Long: '2.42'
     List::Util: '1.38'

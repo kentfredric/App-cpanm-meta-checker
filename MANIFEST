@@ -8,11 +8,16 @@ META.json
 META.yml
 README
 bin/cpanm-meta-checker
-bin/cpanm-meta-checker.fatpack
 dist.ini
 lib/App/cpanm/meta/checker.pm
 lib/App/cpanm/meta/checker/State.pm
 lib/App/cpanm/meta/checker/State/Duplicates.pm
+maint/mk_fatlib.pl
+maint/mk_fatpack.pl
+maint/perlcritic.rc.gen.pl
+maint/prep_tempfatlib.pl
+maint/prep_tempfatlib_stripped.pl
+perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_App_cpanm_meta_checker_State_Duplicates_pm.t
 t/00-compile/lib_App_cpanm_meta_checker_State_pm.t
