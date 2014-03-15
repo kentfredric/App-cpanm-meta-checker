@@ -60,7 +60,8 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 
 
-use Moo 1.000008 qw( has );
+use Moo 1.000008 q();
+use Moo qw( has );
 use Path::Tiny qw( path );
 use App::cpanm::meta::checker::State;
 use Config qw();
