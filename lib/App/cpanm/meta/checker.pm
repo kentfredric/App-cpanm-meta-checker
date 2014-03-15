@@ -74,8 +74,8 @@ has 'search_dirs' => (
     builder => sub {
         my @paths;
         push @paths,
-          path( $Config{sitelibexp} )
-          ->child( $Config{archname} )->child('.meta');
+          path( $Config{sitelibexp} )->child( $Config{archname} )
+          ->child('.meta');
         return \@paths;
     },
 );
@@ -90,14 +90,14 @@ sub all_search_dir_child {
     my @answers = grep { -e $_ }
       map { path($_)->child(@childpath) } @{ $self->search_dirs };
     return @answers unless $self->sorted;
-    return ( my @sorted = sort @answers );
+    return @{ [ sort @answers ] };
 }
 
 sub all_search_dir_children {
     my ($self) = @_;
     my @answers = map { path($_)->children } @{ $self->search_dirs };
     return @answers unless $self->sorted;
-    return ( my @sorted = sort @answers );
+    return @{ [ sort @answers ] };
 }
 
 has 'tests' => (
@@ -115,7 +115,7 @@ has 'tests' => (
 has 'sorted' => (
     is      => ro  =>,
     lazy    => 1,
-    builder => sub { return; }
+    builder => sub { return; },
 );
 
 has 'mode' => (
