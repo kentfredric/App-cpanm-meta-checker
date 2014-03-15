@@ -37,21 +37,26 @@ has '_duplicates' => (
     },
 );
 
+sub _output {
+    my ( $self, $prefix, $message ) = @_;
+    return $self->list_fd->printf( qq[%s: %s\n], $prefix, $message );
+}
+
 sub x_test_list {
     my ( $self, $path, ) = @_;
-    $self->list_fd->printf( "list:%s\n", path($path)->basename );
+    return $self->_output( 'list', path($path)->basename );
 }
 
 sub x_test_list_nonempty {
     my ( $self, $path ) = @_;
     return unless path($path)->children;
-    $self->list_fd->printf( "list_nonempty:%s\n", path($path)->basename );
+    return $self->_output( 'list_nonempty', path($path)->basename );
 }
 
 sub x_test_list_empty {
     my ( $self, $path ) = @_;
     return if path($path)->children;
-    $self->list_fd->printf( "list_empty:%s\n", path($path)->basename );
+    return $self->_output( 'list_empty', path($path)->basename );
 }
 
 sub x_test_list_duplicates {
@@ -66,11 +71,11 @@ sub x_test_list_duplicates {
     my $fmt = "list_duplicates:%s-%s\n";
 
     if ( $self->_duplicates->reported_duplicates($dist) ) {
-        printf $fmt, $dist, $version;
+        $self->_output( $label, sprintf $fmt, $dist, $version );
         return;
     }
 
-    $self->list_fd->printf( $fmt, $dist, $_ )
+    $self->_output( $label, sprintf $fmt, $dist, $_ )
       for $self->_duplicates->duplicate_versions($dist);
 
     $self->_duplicates->reported_duplicates( $dist, 1 );
@@ -91,8 +96,8 @@ sub _cpan_meta_check_phase_type {
     for
       my $dep ( CPAN::Meta::Check::verify_dependencies( $meta, $phase, $type ) )
     {
-        $self->list_fd->printf( "%s:%s:%s\n", $label, path($path)->basename,
-            $dep );
+        $self->_output( $label,
+            ( sprintf '%s: %s', path( $path )->basename, $dep ) );
     }
     return;
 }
