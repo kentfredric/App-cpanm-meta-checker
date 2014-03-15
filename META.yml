@@ -39,6 +39,10 @@ requires:
   strict: '0'
   utf8: '0'
   warnings: '0'
+resources:
+  bugtracker: https://github.com/kentfredric/App-cpanm-meta-checker/issues
+  homepage: https://github.com/kentfredric/App-cpanm-meta-checker
+  repository: https://github.com/kentfredric/App-cpanm-meta-checker.git
 version: '0.001000'
 x_BuiltWith:
   modules:
