@@ -94,7 +94,6 @@ sub _cache_cpan_meta {
 
 sub _cpan_meta_check_phase_type {
     my ( $self, %args ) = @_;
-    my ( $self, $path, $state, $label, $phase, $type ) = @_;
     my $meta = $self->_cache_cpan_meta( $args{path}, $args{state} );
     for my $dep ( verify_dependencies( $meta, $args{phase}, $args{type} ) ) {
         $self->_output( $args{label},
