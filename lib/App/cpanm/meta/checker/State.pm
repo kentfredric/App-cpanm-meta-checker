@@ -11,7 +11,7 @@ package App::cpanm::meta::checker::State;
 
 use Moo qw(has);
 use CPAN::Meta;
-use CPAN::Meta::Check;
+use CPAN::Meta::Check qw(verify_dependencies);
 use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
@@ -84,28 +84,42 @@ sub x_test_list_duplicates {
 }
 
 sub _cache_cpan_meta {
-    my ( $self, $path, $state ) = @_;
+    my ( undef, $path, $state ) = @_;
     return $state->{cpan_meta} if defined $state->{cpan_meta};
     return ( $state->{cpan_meta} =
           CPAN::Meta->load_file( path($path)->child('MYMETA.json') ) );
 }
 
 sub _cpan_meta_check_phase_type {
-    my ( $self, $path, $state, $label, $phase, $type ) = @_;
-    my $meta = $self->_cache_cpan_meta( $path, $state );
-    for
-      my $dep ( CPAN::Meta::Check::verify_dependencies( $meta, $phase, $type ) )
-    {
-        $self->_output( $label,
-            ( sprintf '%s: %s', path( $path )->basename, $dep ) );
+    my ( $self, %args ) = @_;
+    my $meta = $self->_cache_cpan_meta( $args{path}, $args{state} );
+    for my $dep ( verify_dependencies( $meta, $args{phase}, $args{type} ) ) {
+        $self->_output( $args{label},
+            ( sprintf '%s: %s', path( $args{path} )->basename, $dep ) );
     }
     return;
 }
 
-sub x_test_check_runtime_requires {
-    my ( $self, $path, $state ) = @_;
-    $self->_cpan_meta_check_phase_type( $path, $state, 'check_runtime_requires',
-        'runtime', 'requires' );
+for my $phase (qw( runtime configure build develop test )) {
+    for my $rel (qw( requires suggests conflicts recommends )) {
+        my $method = 'x_test_check_' . $phase . '_' . $rel;
+
+        my $code = sub {
+            my ( $self, $path, $state ) = @_;
+            return $self->_cpan_meta_check_phase_type(
+                path  => $path,
+                state => $state,
+                label => ( 'check_' . $phase . '_' . $rel ),
+                phase => $phase,
+                type  => $rel,
+            );
+        };
+        {
+            ## no critic (TestingAndDebugging::ProhibitNoStrict)
+            no strict 'refs';
+            *{$method} = $code;
+        }
+    }
 }
 
 =method C<check_path>
