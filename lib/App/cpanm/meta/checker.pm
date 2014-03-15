@@ -101,7 +101,11 @@ has 'tests' => (
     is      => ro =>,
     lazy    => 1,
     builder => sub {
-        return [ 'list_empty', 'list_duplicates', 'check_runtime_requires' ];
+        return [
+            'list_empty',             'list_duplicates',
+            'check_runtime_requires', 'check_runtime_recommends',
+            'check_runtime_suggests', 'check_runtime_conflicts',
+        ];
     },
 );
 
