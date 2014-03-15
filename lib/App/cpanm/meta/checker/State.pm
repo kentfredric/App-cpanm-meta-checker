@@ -10,6 +10,7 @@ package App::cpanm::meta::checker::State;
 # AUTHORITY
 
 use Moo qw(has);
+use Carp qw(croak);
 use CPAN::Meta;
 use CPAN::Meta::Check qw(verify_dependencies);
 use App::cpanm::meta::checker::State::Duplicates;
@@ -26,7 +27,7 @@ has 'list_fd' => (
     lazy    => 1,
     builder => sub {
         \*STDERR;
-    }
+    },
 );
 
 has '_duplicates' => (
@@ -59,16 +60,29 @@ sub x_test_list_empty {
     return $self->_output( 'list_empty', path($path)->basename );
 }
 
+## no critic (Compatibility::PerlMinimumVersionAndWhy)
+# _Pulp__5010_qr_m_propagate_properly
+my $distversion_re = qr{
+    \A
+    (.*)
+    -
+    (
+        [^-]+
+        (?:-TRIAL)?
+    )
+    \z
+}msx;
+
 sub x_test_list_duplicates {
     my ( $self, $path ) = @_;
     my $basename = path($path)->basename;
-    my ( $dist, $version ) = $basename =~ /\A(.*)-([^-]+(?:-TRIAL)?)\z/;
-
+    my ( $dist, $version ) = $basename =~ $distversion_re;
     $self->_duplicates->seen_dist_version( $dist, $version );
 
     return unless $self->_duplicates->has_duplicates($dist);
 
-    my $fmt = "list_duplicates:%s-%s\n";
+    my $label = 'list_duplicates';
+    my $fmt   = '%s-%s';
 
     if ( $self->_duplicates->reported_duplicates($dist) ) {
         $self->_output( $label, sprintf $fmt, $dist, $version );
@@ -136,10 +150,11 @@ sub check_path {
     for my $test ( @{ $self->tests } ) {
         my $method = 'x_test_' . $test;
         if ( not $self->can($method) ) {
-            die "no method $method for test $test";
+            return croak("no method $method for test $test");
         }
         $self->$method( $path, $state );
     }
+    return;
 }
 
 no Moo;
