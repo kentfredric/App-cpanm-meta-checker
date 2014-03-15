@@ -64,6 +64,7 @@ use Moo 1.000008 qw( has );
 use Path::Tiny qw( path );
 use App::cpanm::meta::checker::State;
 use Config qw();
+use Carp qw(croak);
 use Getopt::Long;
 
 has 'search_dirs' => (
@@ -196,9 +197,7 @@ sub check_all {
 
 sub run_command {
     my ($self) = @_;
-    if ( $self->mode eq 'all' ) {
-        return $self->check_all;
-    }
+    return $self->check_all if 'all' eq $self->mode;
     return;
 }
 
@@ -220,17 +219,17 @@ sub new_from_command {
             if (
                 not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) )
             {
-                die "No such test $_[1]";
+                croak("No such test $_[1]");
             }
             push @{ $config->{tests} }, $_[1];
         },
-    ) or die Getopt::Long::HelpMessage;
+    ) or croak(Getopt::Long::HelpMessage);
 
-    my $obj = $class->new( { %defaults, %{$config} } );
+    my $app_obj = $class->new( +{ %defaults, %{$config} } );
     if ($verbose) {
-        unshift @{ $obj->tests }, 'list';
+        unshift @{ $app_obj->tests }, 'list';
     }
-    return $obj;
+    return $app_obj;
 }
 1;
 
