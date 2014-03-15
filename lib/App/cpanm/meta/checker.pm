@@ -235,23 +235,30 @@ sub new_from_command {
     my ( $class, %defaults ) = @_;
 
     my $config = {};
+    my $verbose;
 
     Getopt::Long::Configure( 'auto_version', 'auto_help' );
 
     Getopt::Long::GetOptions(
         's|sort!'  => \$config->{sorted},
         'A|all!'   => sub { $config->{mode} = 'all' },
-        'verbose!' => \$config->{verbose},
-        'test=s'   => sub {
+        'verbose!' => sub {
+            $verbose = $_[0];
+        },
+        'test=s' => sub {
             if (
                 not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) )
             {
-                die "No such test $_[1]";
+                croak("No such test $_[1]");
             }
             push @{ $config->{tests} }, $_[1];
         },
-    ) or die Getopt::Long::HelpMessage;
+    ) or croak(Getopt::Long::HelpMessage);
 
-    return $class->new( { %defaults, %{$config} } );
+    my $app_obj = $class->new( +{ %defaults, %{$config} } );
+    if ($verbose) {
+        unshift @{ $app_obj->tests }, 'list';
+    }
+    return $app_obj;
 }
 1;
