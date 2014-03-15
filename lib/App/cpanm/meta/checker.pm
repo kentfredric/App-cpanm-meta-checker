@@ -188,8 +188,16 @@ sub check_distname {
     my ( $self, $distname ) = @_;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
-    for my $dir (
-        grep { path($_)->basename =~ /\A\Q$distname\E-[^-]+(?:TRIAL)?\z/ }
+    my $distname_re = qr{
+       \A
+       \Q$distname\E
+       -
+       [^-]+
+       (?:TRIAL)?
+       \z
+    }msx;
+
+    for my $dir ( grep { path($_)->basename =~ $distname_re }
         $self->all_search_dir_children )
     {
         $state->check_path($dir);
