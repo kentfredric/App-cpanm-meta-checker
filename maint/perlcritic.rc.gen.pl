@@ -13,7 +13,7 @@ use Perl::Critic::ProfileCompiler::Util qw( create_bundle );
 my $bundle = create_bundle('Example::Author::KENTNL');
 $bundle->configure;
 
-my @stopwords = ();
+my @stopwords = (qw(cpanm));
 for my $var (@stopwords) {
     $bundle->add_or_append_policy_field(
         'Documentation::PodSpelling' => ( 'stop_words' => $var ) );
@@ -23,7 +23,9 @@ for my $var (@stopwords) {
 #  'Subroutines::ProhibitCallsToUndeclaredSubs' => ( 'exempt_subs' => 'String::Formatter::str_rf' ), );
 
 #$bundle->remove_policy('ErrorHandling::RequireCarping');
-#$bundle->remove_policy('NamingConventions::Capitalization');
+$bundle->remove_policy('NamingConventions::Capitalization');
+$bundle->remove_policy('Modules::ProhibitMultiplePackages');
+$bundle->remove_policy('ErrorHandling::RequireUseOfExceptions');
 
 my $inf = $bundle->actionlist->get_inflated;
 
