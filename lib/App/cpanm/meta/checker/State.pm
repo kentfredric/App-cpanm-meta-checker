@@ -60,6 +60,8 @@ sub x_test_list_empty {
     return $self->_output( 'list_empty', path($path)->basename );
 }
 
+## no critic (Compatibility::PerlMinimumVersionAndWhy)
+# _Pulp__5010_qr_m_propagate_properly
 my $distversion_re = qr{
     \A
     (.*)
