@@ -60,11 +60,21 @@ sub x_test_list_empty {
     return $self->_output( 'list_empty', path($path)->basename );
 }
 
+my $distversion_re = qr{
+    \A
+    (.*)
+    -
+    (
+        [^-]+
+        (?:-TRIAL)?
+    )
+    \z
+}msx;
+
 sub x_test_list_duplicates {
     my ( $self, $path ) = @_;
     my $basename = path($path)->basename;
-    my ( $dist, $version ) = $basename =~ /\A(.*)-([^-]+(?:-TRIAL)?)\z/;
-
+    my ( $dist, $version ) = $basename =~ $distversion_re;
     $self->_duplicates->seen_dist_version( $dist, $version );
 
     return unless $self->_duplicates->has_duplicates($dist);

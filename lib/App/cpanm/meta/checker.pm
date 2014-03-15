@@ -188,6 +188,8 @@ sub check_distname {
     my ( $self, $distname ) = @_;
     my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
+    ## no critic (Compatibility::PerlMinimumVersionAndWhy)
+    # _Pulp__5010_qr_m_propagate_properly
     my $distname_re = qr{
        \A
        \Q$distname\E
