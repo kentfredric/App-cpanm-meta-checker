@@ -1,0 +1,3 @@
+App-cpanm-meta-checker-*
+.build/
+bin/cpanm-meta-checker.fatpack

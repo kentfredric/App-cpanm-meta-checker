@@ -1,0 +1,10 @@
+Release history for App-cpanm-meta-checker
+
+0.001000 2014-03-15T23:23:56Z
+ - First version.
+
+ [Dependencies::Aggregate]
+ - 5.008 - 55
+ - 5.010 - 38
+ - 5.019 - 19
+
