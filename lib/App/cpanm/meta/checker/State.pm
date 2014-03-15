@@ -12,7 +12,7 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 use Moo qw(has);
 use Carp qw(croak);
 use CPAN::Meta;
-use CPAN::Meta::Check;
+use CPAN::Meta::Check qw(verify_dependencies);
 use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
@@ -38,26 +38,26 @@ has '_duplicates' => (
     },
 );
 
-sub log {
+sub _output {
     my ( $self, $prefix, $message ) = @_;
-    $self->list_fd->printf( "%s: %s\n", $prefix, $message );
+    return $self->list_fd->printf( qq[%s: %s\n], $prefix, $message );
 }
 
 sub x_test_list {
     my ( $self, $path, ) = @_;
-    return $self->log( 'list', path($path)->basename );
+    return $self->_output( 'list', path($path)->basename );
 }
 
 sub x_test_list_nonempty {
     my ( $self, $path ) = @_;
     return unless path($path)->children;
-    return $self->log( 'list_nonempty', path($path)->basename );
+    return $self->_output( 'list_nonempty', path($path)->basename );
 }
 
 sub x_test_list_empty {
     my ( $self, $path ) = @_;
     return if path($path)->children;
-    return $self->log( 'list_empty', path($path)->basename );
+    return $self->_output( 'list_empty', path($path)->basename );
 }
 
 sub x_test_list_duplicates {
@@ -69,15 +69,15 @@ sub x_test_list_duplicates {
 
     return unless $self->_duplicates->has_duplicates($dist);
 
-    my $label = "list_duplicates";
-    my $fmt   = "%s-%s";
+    my $label = 'list_duplicates';
+    my $fmt   = '%s-%s';
 
     if ( $self->_duplicates->reported_duplicates($dist) ) {
-        $self->log( $label, sprintf $fmt, $dist, $version );
+        $self->_output( $label, sprintf $fmt, $dist, $version );
         return;
     }
 
-    $self->log( $label, sprintf $fmt, $dist, $_ )
+    $self->_output( $label, sprintf $fmt, $dist, $_ )
       for $self->_duplicates->duplicate_versions($dist);
 
     $self->_duplicates->reported_duplicates( $dist, 1 );
@@ -86,19 +86,19 @@ sub x_test_list_duplicates {
 }
 
 sub _cache_cpan_meta {
-    my ( $self, $path, $state ) = @_;
+    my ( undef, $path, $state ) = @_;
     return $state->{cpan_meta} if defined $state->{cpan_meta};
     return ( $state->{cpan_meta} =
           CPAN::Meta->load_file( path($path)->child('MYMETA.json') ) );
 }
 
 sub _cpan_meta_check_phase_type {
+    my ( $self, %args ) = @_;
     my ( $self, $path, $state, $label, $phase, $type ) = @_;
-    my $meta = $self->_cache_cpan_meta( $path, $state );
-    for
-      my $dep ( CPAN::Meta::Check::verify_dependencies( $meta, $phase, $type ) )
-    {
-        $self->log( $label, ( sprintf "%s: %s", path($path)->basename, $dep ) );
+    my $meta = $self->_cache_cpan_meta( $args{path}, $args{state} );
+    for my $dep ( verify_dependencies( $meta, $args{phase}, $args{type} ) ) {
+        $self->_output( $args{label},
+            ( sprintf '%s: %s', path( $args{path} )->basename, $dep ) );
     }
     return;
 }
@@ -109,9 +109,13 @@ for my $phase (qw( runtime configure build develop test )) {
 
         my $code = sub {
             my ( $self, $path, $state ) = @_;
-            return $self->_cpan_meta_check_phase_type( $path, $state,
-                'check_' . $phase . '_' . $rel,
-                $phase, $rel );
+            return $self->_cpan_meta_check_phase_type(
+                path  => $path,
+                state => $state,
+                label => ( 'check_' . $phase . '_' . $rel ),
+                phase => $phase,
+                type  => $rel,
+            );
         };
         {
             no strict 'refs';
