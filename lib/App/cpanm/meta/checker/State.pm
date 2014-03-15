@@ -10,6 +10,7 @@ $App::cpanm::meta::checker::State::VERSION = '0.001000';
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use Moo qw(has);
+use Carp qw(croak);
 use CPAN::Meta;
 use CPAN::Meta::Check;
 use App::cpanm::meta::checker::State::Duplicates;
@@ -97,7 +98,7 @@ sub _cpan_meta_check_phase_type {
     for
       my $dep ( CPAN::Meta::Check::verify_dependencies( $meta, $phase, $type ) )
     {
-        $self->log( $label, sprintf( "%s: %s", path($path)->basename, $dep ) );
+        $self->log( $label, ( sprintf "%s: %s", path($path)->basename, $dep ) );
     }
     return;
 }
@@ -112,7 +113,10 @@ for my $phase (qw( runtime configure build develop test )) {
                 'check_' . $phase . '_' . $rel,
                 $phase, $rel );
         };
-        { no strict 'refs'; *{$method} = $code };
+        {
+            no strict 'refs';
+            *{$method} = $code;
+        }
     }
 }
 
@@ -130,10 +134,11 @@ sub check_path {
     for my $test ( @{ $self->tests } ) {
         my $method = 'x_test_' . $test;
         if ( not $self->can($method) ) {
-            die "no method $method for test $test";
+            return croak("no method $method for test $test");
         }
         $self->$method( $path, $state );
     }
+    return;
 }
 
 no Moo;

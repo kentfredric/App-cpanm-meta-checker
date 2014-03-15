@@ -113,6 +113,7 @@ my $static_prereqs = do { my $x = {
                       'requires' => {
                                       'CPAN::Meta' => '0',
                                       'CPAN::Meta::Check' => '0',
+                                      'Carp' => '0',
                                       'Getopt::Long' => '0',
                                       'Moo' => '1.000008',
                                       'Path::Tiny' => '0',
