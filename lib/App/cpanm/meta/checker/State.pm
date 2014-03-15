@@ -27,7 +27,7 @@ has 'list_fd' => (
     lazy    => 1,
     builder => sub {
         \*STDERR;
-    }
+    },
 );
 
 has '_duplicates' => (
@@ -117,6 +117,7 @@ for my $phase (qw( runtime configure build develop test )) {
             );
         };
         {
+            ## no critic (TestingAndDebugging::ProhibitNoStrict)
             no strict 'refs';
             *{$method} = $code;
         }

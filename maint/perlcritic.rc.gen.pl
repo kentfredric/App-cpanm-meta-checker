@@ -25,6 +25,7 @@ for my $var (@stopwords) {
 #$bundle->remove_policy('ErrorHandling::RequireCarping');
 $bundle->remove_policy('NamingConventions::Capitalization');
 $bundle->remove_policy('Modules::ProhibitMultiplePackages');
+$bundle->remove_policy('ErrorHandling::RequireUseOfExceptions');
 
 my $inf = $bundle->actionlist->get_inflated;
 
