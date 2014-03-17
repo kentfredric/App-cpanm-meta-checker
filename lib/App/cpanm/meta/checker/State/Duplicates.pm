@@ -13,36 +13,36 @@ use Moo qw( has );
 use App::cpanm::meta::checker::State::Duplicates::Dist;
 
 has 'dists' => (
-    is      => ro  =>,
-    lazy    => 1,
-    builder => sub { {} },
+  is      => ro  =>,
+  lazy    => 1,
+  builder => sub { {} },
 );
 
 sub seen_dist_version {
-    my ( $self, $dist, $version ) = @_;
-    if ( not exists $self->dists->{$dist} ) {
-        $self->dists->{$dist} = App::cpanm::meta::checker::State::Duplicates::Dist->new();
-    }
-    return $self->dists->{$dist}->seen_version($version);
+  my ( $self, $dist, $version ) = @_;
+  if ( not exists $self->dists->{$dist} ) {
+    $self->dists->{$dist} = App::cpanm::meta::checker::State::Duplicates::Dist->new();
+  }
+  return $self->dists->{$dist}->seen_version($version);
 }
 
 sub has_duplicates {
-    my ( $self, $dist ) = @_;
-    return unless exists $self->dists->{$dist};
-    return $self->dists->{$dist}->has_duplicates;
+  my ( $self, $dist ) = @_;
+  return unless exists $self->dists->{$dist};
+  return $self->dists->{$dist}->has_duplicates;
 }
 
 sub reported_duplicates {
-    my ( $self, $dist, $set_reported ) = @_;
-    return unless exists $self->dists->{$dist};
-    return $self->dists->{$dist}->reported($set_reported) if @_ > 2;
-    return $self->dists->{$dist}->reported();
+  my ( $self, $dist, $set_reported ) = @_;
+  return unless exists $self->dists->{$dist};
+  return $self->dists->{$dist}->reported($set_reported) if @_ > 2;
+  return $self->dists->{$dist}->reported();
 }
 
 sub duplicate_versions {
-    my ( $self, $dist ) = @_;
-    return unless exists $self->dists->{$dist};
-    return $self->dists->{$dist}->duplicate_versions;
+  my ( $self, $dist ) = @_;
+  return unless exists $self->dists->{$dist};
+  return $self->dists->{$dist}->duplicate_versions;
 }
 
 1;

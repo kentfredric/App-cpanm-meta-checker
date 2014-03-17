@@ -88,59 +88,56 @@ use Carp qw(croak);
 use Getopt::Long;
 
 has 'search_dirs' => (
-    is      => 'ro',
-    lazy    => 1,
-    builder => sub {
-        my @paths;
-        push @paths,
-          path( $Config{sitelibexp} )->child( $Config{archname} )
-          ->child('.meta');
-        return \@paths;
-    },
+  is      => 'ro',
+  lazy    => 1,
+  builder => sub {
+    my @paths;
+    push @paths, path( $Config{sitelibexp} )->child( $Config{archname} )->child('.meta');
+    return \@paths;
+  },
 );
 
 sub all_search_dirs {
-    my ($self) = @_;
-    return @{ $self->search_dirs };
+  my ($self) = @_;
+  return @{ $self->search_dirs };
 }
 
 sub all_search_dir_child {
-    my ( $self, @childpath ) = @_;
-    my @answers = grep { -e $_ }
-      map { path($_)->child(@childpath) } @{ $self->search_dirs };
-    return @answers unless $self->sorted;
-    return @{ [ sort @answers ] };
+  my ( $self, @childpath ) = @_;
+  my @answers = grep { -e $_ }
+    map { path($_)->child(@childpath) } @{ $self->search_dirs };
+  return @answers unless $self->sorted;
+  return @{ [ sort @answers ] };
 }
 
 sub all_search_dir_children {
-    my ($self) = @_;
-    my @answers = map { path($_)->children } @{ $self->search_dirs };
-    return @answers unless $self->sorted;
-    return @{ [ sort @answers ] };
+  my ($self) = @_;
+  my @answers = map { path($_)->children } @{ $self->search_dirs };
+  return @answers unless $self->sorted;
+  return @{ [ sort @answers ] };
 }
 
 has 'tests' => (
-    is      => ro =>,
-    lazy    => 1,
-    builder => sub {
-        return [
-            'list_empty',             'list_duplicates',
-            'check_runtime_requires', 'check_runtime_recommends',
-            'check_runtime_suggests', 'check_runtime_conflicts',
-        ];
-    },
+  is      => ro =>,
+  lazy    => 1,
+  builder => sub {
+    return [
+      'list_empty',               'list_duplicates',        'check_runtime_requires',
+      'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+    ];
+  },
 );
 
 has 'sorted' => (
-    is      => ro  =>,
-    lazy    => 1,
-    builder => sub { return; },
+  is      => ro  =>,
+  lazy    => 1,
+  builder => sub { return; },
 );
 
 has 'mode' => (
-    is      => ro  =>,
-    lazy    => 1,
-    builder => sub { return 'all' },
+  is      => ro  =>,
+  lazy    => 1,
+  builder => sub { return 'all' },
 );
 
 =method C<check_path>
@@ -152,9 +149,9 @@ Read the content from C<./foo/bar/baz> and check its consistency.
 =cut
 
 sub check_path {
-    my ( $self, $path ) = @_;
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
-    return $state->check_path($path);
+  my ( $self, $path ) = @_;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  return $state->check_path($path);
 }
 
 =method C<check_release>
@@ -166,12 +163,12 @@ Read the meta-data for the exact release stated and perform checks on it.
 =cut
 
 sub check_release {
-    my ( $self, $releasename ) = @_;
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
-    for my $dir ( $self->all_search_dir_child($releasename) ) {
-        $state->check_path($dir);
-    }
-    return;
+  my ( $self, $releasename ) = @_;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  for my $dir ( $self->all_search_dir_child($releasename) ) {
+    $state->check_path($dir);
+  }
+  return;
 }
 
 =method C<check_distname>
@@ -185,12 +182,12 @@ Note: There may be directories residual from past installs.
 =cut
 
 sub check_distname {
-    my ( $self, $distname ) = @_;
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  my ( $self, $distname ) = @_;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
-    ## no critic (Compatibility::PerlMinimumVersionAndWhy)
-    # _Pulp__5010_qr_m_propagate_properly
-    my $distname_re = qr{
+  ## no critic (Compatibility::PerlMinimumVersionAndWhy)
+  # _Pulp__5010_qr_m_propagate_properly
+  my $distname_re = qr{
        \A
        \Q$distname\E
        -
@@ -199,12 +196,10 @@ sub check_distname {
        \z
     }msx;
 
-    for my $dir ( grep { path($_)->basename =~ $distname_re }
-        $self->all_search_dir_children )
-    {
-        $state->check_path($dir);
-    }
-    return;
+  for my $dir ( grep { path($_)->basename =~ $distname_re } $self->all_search_dir_children ) {
+    $state->check_path($dir);
+  }
+  return;
 }
 
 =method C<check_all>
@@ -216,49 +211,47 @@ Check meta-data for all installed distributions.
 =cut
 
 sub check_all {
-    my ($self) = @_;
+  my ($self) = @_;
 
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
-    for my $dir ( $self->all_search_dir_children ) {
-        $state->check_path($dir);
-    }
-    return;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  for my $dir ( $self->all_search_dir_children ) {
+    $state->check_path($dir);
+  }
+  return;
 }
 
 sub run_command {
-    my ($self) = @_;
-    return $self->check_all if 'all' eq $self->mode;
-    return;
+  my ($self) = @_;
+  return $self->check_all if 'all' eq $self->mode;
+  return;
 }
 
 sub new_from_command {
-    my ( $class, %defaults ) = @_;
+  my ( $class, %defaults ) = @_;
 
-    my $config = {};
-    my $verbose;
+  my $config = {};
+  my $verbose;
 
-    Getopt::Long::Configure( 'auto_version', 'auto_help' );
+  Getopt::Long::Configure( 'auto_version', 'auto_help' );
 
-    Getopt::Long::GetOptions(
-        's|sort!'  => \$config->{sorted},
-        'A|all!'   => sub { $config->{mode} = 'all' },
-        'verbose!' => sub {
-            $verbose = $_[0];
-        },
-        'test=s' => sub {
-            if (
-                not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) )
-            {
-                croak("No such test $_[1]");
-            }
-            push @{ $config->{tests} }, $_[1];
-        },
-    ) or croak(Getopt::Long::HelpMessage);
+  Getopt::Long::GetOptions(
+    's|sort!'  => \$config->{sorted},
+    'A|all!'   => sub { $config->{mode} = 'all' },
+    'verbose!' => sub {
+      $verbose = $_[0];
+    },
+    'test=s' => sub {
+      if ( not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) ) {
+        croak("No such test $_[1]");
+      }
+      push @{ $config->{tests} }, $_[1];
+    },
+  ) or croak(Getopt::Long::HelpMessage);
 
-    my $app_obj = $class->new( +{ %defaults, %{$config} } );
-    if ($verbose) {
-        unshift @{ $app_obj->tests }, 'list';
-    }
-    return $app_obj;
+  my $app_obj = $class->new( +{ %defaults, %{$config} } );
+  if ($verbose) {
+    unshift @{ $app_obj->tests }, 'list';
+  }
+  return $app_obj;
 }
 1;
