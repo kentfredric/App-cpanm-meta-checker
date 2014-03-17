@@ -3,8 +3,8 @@ use strict;
 use warnings;
 use utf8;
 
-package App::cpanm::meta::checker::State::Duplicate::Dist;
-$App::cpanm::meta::checker::State::Duplicate::Dist::VERSION = '0.001001';
+package App::cpanm::meta::checker::State::Duplicates::Dist;
+$App::cpanm::meta::checker::State::Duplicates::Dist::VERSION = '0.001001';
 # ABSTRACT: State information for recording seen versions of a single dist
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -51,7 +51,7 @@ __END__
 
 =head1 NAME
 
-App::cpanm::meta::checker::State::Duplicate::Dist - State information for recording seen versions of a single dist
+App::cpanm::meta::checker::State::Duplicates::Dist - State information for recording seen versions of a single dist
 
 =head1 VERSION
 

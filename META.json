@@ -79,7 +79,6 @@
       },
       "runtime" : {
          "requires" : {
-            "App::cpanm::meta::checker::State::Duplicate::Dist" : "0",
             "CPAN::Meta" : "0",
             "CPAN::Meta::Check" : "0",
             "Carp" : "0",
@@ -117,12 +116,12 @@
          "file" : "lib/App/cpanm/meta/checker/State.pm",
          "version" : "0.001001"
       },
-      "App::cpanm::meta::checker::State::Duplicate::Dist" : {
-         "file" : "lib/App/cpanm/meta/checker/State/Duplicates/Dist.pm",
-         "version" : "0.001001"
-      },
       "App::cpanm::meta::checker::State::Duplicates" : {
          "file" : "lib/App/cpanm/meta/checker/State/Duplicates.pm",
+         "version" : "0.001001"
+      },
+      "App::cpanm::meta::checker::State::Duplicates::Dist" : {
+         "file" : "lib/App/cpanm/meta/checker/State/Duplicates/Dist.pm",
          "version" : "0.001001"
       }
    },
@@ -140,9 +139,6 @@
    },
    "version" : "0.001001",
    "x_BuiltWith" : {
-      "failures" : {
-         "App::cpanm::meta::checker::State::Duplicate::Dist" : "module was not found in INC"
-      },
       "modules" : {
          "CPAN::Meta" : "2.140640",
          "CPAN::Meta::Check" : "0.008",

@@ -108,7 +108,6 @@ my $static_prereqs = do { my $x = {
                     },
        'runtime' => {
                       'requires' => {
-                                      'App::cpanm::meta::checker::State::Duplicate::Dist' => '0',
                                       'CPAN::Meta' => '0',
                                       'CPAN::Meta::Check' => '0',
                                       'Carp' => '0',

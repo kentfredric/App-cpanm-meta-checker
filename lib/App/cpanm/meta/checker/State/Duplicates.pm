@@ -10,7 +10,7 @@ $App::cpanm::meta::checker::State::Duplicates::VERSION = '0.001001';
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use Moo qw( has );
-use App::cpanm::meta::checker::State::Duplicate::Dist;
+use App::cpanm::meta::checker::State::Duplicates::Dist;
 
 has 'dists' => (
   is      => ro  =>,

@@ -23,7 +23,6 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "App::cpanm::meta::checker",
   "PREREQ_PM" => {
-    "App::cpanm::meta::checker::State::Duplicate::Dist" => 0,
     "CPAN::Meta" => 0,
     "CPAN::Meta::Check" => 0,
     "Carp" => 0,
@@ -49,7 +48,6 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "App::cpanm::meta::checker::State::Duplicate::Dist" => 0,
   "CPAN::Meta" => 0,
   "CPAN::Meta::Check" => 0,
   "Carp" => 0,
