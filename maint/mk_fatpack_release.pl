@@ -1,6 +1,4 @@
 #!/usr/bin/env perl
-# FILENAME: mk_fatlib.pl
-# CREATED: 03/09/14 06:16:17 by Kent Fredric (kentnl) <kentfredric@gmail.com>
 # ABSTRACT: Create a stripped fatpack library
 
 use strict;
@@ -10,16 +8,9 @@ use utf8;
 use Path::Tiny qw(path);
 use Capture::Tiny qw( capture_stdout );
 use FindBin;
-my $cwd             = path('.')->absolute;
-my $root            = path($FindBin::Bin)->parent->absolute;
-my @buildcandidates = grep { $_->is_dir }
-  grep { $_->basename =~ /\AApp-cpanm-meta-checker-/ } $root->children;
-
-if ( not @buildcandidates ) {
-  die "No build candidates";
-}
-my ($last) =
-  [ sort { $b->stat->mtime <=> $a->stat->mtime } @buildcandidates ]->[0];
+my $cwd    = path('.')->absolute;
+my $root   = path($FindBin::Bin)->parent->absolute;
+my ($last) = $root;
 print "Making fatlib using $last\n";
 
 sub withlib(&) {
