@@ -4,6 +4,8 @@ use warnings;
 
 # PODNAME: cpan-meta-checker
 
+# ABSTRACT: command line tool for checking installed distribution integrity
+
 use App::cpanm::meta::checker;
 my $app = App::cpanm::meta::checker->new_from_command;
 $app->run_command();
