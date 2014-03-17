@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use utf8;
 
-package App::cpanm::meta::checker::State::Duplicate::Dist;
+package App::cpanm::meta::checker::State::Duplicates::Dist;
 
 # ABSTRACT: State information for recording seen versions of a single dist
 

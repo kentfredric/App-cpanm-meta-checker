@@ -10,7 +10,7 @@ package App::cpanm::meta::checker::State::Duplicates;
 # AUTHORITY
 
 use Moo qw( has );
-use App::cpanm::meta::checker::State::Duplicate::Dist;
+use App::cpanm::meta::checker::State::Duplicates::Dist;
 
 has 'dists' => (
     is      => ro  =>,
