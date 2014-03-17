@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = .
+	branch = fatlibs
+	commit = 774dfdab3185627d11f1a38c680ec982c102a39c
+	parent = 685198dcc242054c9891149309be635c1c43da3d
+	cmdver = 0.1.0
