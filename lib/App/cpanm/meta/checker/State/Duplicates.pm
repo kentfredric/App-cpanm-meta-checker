@@ -10,6 +10,7 @@ package App::cpanm::meta::checker::State::Duplicates;
 # AUTHORITY
 
 use Moo qw( has );
+use App::cpanm::meta::checker::State::Duplicate::Dist;
 
 has 'dists' => (
     is      => ro  =>,
@@ -45,40 +46,4 @@ sub duplicate_versions {
     return $self->dists->{$dist}->duplicate_versions;
 }
 
-no Moo;
-
-package    ## hide
-  App::cpanm::meta::checker::State::Duplicate::Dist;
-
-use Moo qw( has );
-
-has 'reported' => (
-    is      => rw  =>,
-    lazy    => 1,
-    builder => sub { return; },
-);
-
-has 'versions' => (
-    is   => ro =>,
-    lazy => 1,
-    builder => sub { return {} },
-);
-
-sub has_duplicates {
-    my ($self) = @_;
-    return ( keys %{ $self->versions } > 1 );
-}
-
-sub seen_version {
-    my ( $self, $version ) = @_;
-    $self->versions->{$version} = 1;
-    return;
-}
-
-sub duplicate_versions {
-    my ($self) = @_;
-    return keys %{ $self->versions };
-}
-
 1;
-
