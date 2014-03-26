@@ -4,9 +4,8 @@ use strict;
 use warnings;
 use utf8;
 
-package       # hide
-  App::cpan::meta::checker::main;
-
+package App::cpan::meta::checker::main;
+$App::cpan::meta::checker::main::VERSION = '0.001001';
 # PODNAME: cpan-meta-checker
 
 # ABSTRACT: command line tool for checking installed distribution integrity
