@@ -65,7 +65,7 @@
             "Dist::Zilla::Plugin::TestRelease" : "0",
             "Dist::Zilla::Plugin::Twitter" : "0",
             "Dist::Zilla::Plugin::UploadToCPAN" : "0",
-            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.012000",
+            "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.012001",
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Changes" : "0.19",
             "Test::CPAN::Meta" : "0",
@@ -96,7 +96,7 @@
             "CPAN::Meta" : "0",
             "CPAN::Meta::Requirements" : "2.120900",
             "ExtUtils::MakeMaker" : "6.92",
-            "Test::More" : "1.001002"
+            "Test::More" : "1.001003"
          },
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
@@ -143,7 +143,7 @@
          "CPAN::Meta" : "2.140640",
          "CPAN::Meta::Check" : "0.008",
          "CPAN::Meta::Requirements" : "2.125",
-         "Carp" : "1.32",
+         "Carp" : "1.33",
          "Dist::Zilla::Plugin::Authority" : "1.006",
          "Dist::Zilla::Plugin::AutoPrereqs" : "5.014",
          "Dist::Zilla::Plugin::ConfirmRelease" : "5.014",
@@ -175,7 +175,7 @@
          "Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled" : "0.001000",
          "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0.133360",
          "Dist::Zilla::Plugin::ReadmeFromPod" : "0.21",
-         "Dist::Zilla::Plugin::RunExtraTests" : "0.018",
+         "Dist::Zilla::Plugin::RunExtraTests" : "0.020",
          "Dist::Zilla::Plugin::Test::CPAN::Changes" : "0.008",
          "Dist::Zilla::Plugin::Test::Compile::PerFile" : "0.001001",
          "Dist::Zilla::Plugin::Test::Kwalitee" : "2.07",
@@ -185,7 +185,7 @@
          "Dist::Zilla::Plugin::TestRelease" : "5.014",
          "Dist::Zilla::Plugin::Twitter" : "0.025",
          "Dist::Zilla::Plugin::UploadToCPAN" : "5.014",
-         "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.012000",
+         "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.012001",
          "Dist::Zilla::PluginBundle::Author::KENTNL::Lite" : "1.7.2",
          "ExtUtils::MakeMaker" : "6.92",
          "File::Spec::Functions" : "3.47",
@@ -197,21 +197,21 @@
          "Test::CPAN::Changes" : "0.27",
          "Test::CPAN::Meta" : "0.23",
          "Test::Kwalitee" : "1.18",
-         "Test::More" : "1.001002",
+         "Test::More" : "1.001003",
          "Test::Pod" : "1.48",
          "Test::Pod::Coverage" : "1.08",
          "strict" : "1.08",
          "utf8" : "1.13",
          "version" : "0.9908",
-         "warnings" : "1.22"
+         "warnings" : "1.23"
       },
       "perl" : {
-         "original" : "v5.19.9",
+         "original" : "v5.19.10",
          "qv" : 1,
          "version" : [
             5,
             19,
-            9
+            10
          ]
       },
       "perl-config" : {
@@ -220,11 +220,11 @@
          "osname" : "linux"
       },
       "platform" : "linux",
-      "uname" : "Linux 3.13.0-gentoo-r1 x86_64 GenuineIntel GNU/Linux"
+      "uname" : "Linux 3.13.5-gentoo x86_64 GenuineIntel GNU/Linux"
    },
    "x_Dist_Zilla" : {
       "perl" : {
-         "version" : "5.019009"
+         "version" : "5.019010"
       },
       "plugins" : [
          {
@@ -560,7 +560,7 @@
             "class" : "Dist::Zilla::Plugin::MakeMaker",
             "config" : {
                "Dist::Zilla::Role::TestRunner" : {
-                  "default_jobs" : 1
+                  "default_jobs" : 10
                }
             },
             "name" : "@Author::KENTNL/MakeMaker",
@@ -585,11 +585,11 @@
             "class" : "Dist::Zilla::Plugin::RunExtraTests",
             "config" : {
                "Dist::Zilla::Role::TestRunner" : {
-                  "default_jobs" : 1
+                  "default_jobs" : 10
                }
             },
             "name" : "@Author::KENTNL/RunExtraTests",
-            "version" : "0.018"
+            "version" : "0.020"
          },
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",

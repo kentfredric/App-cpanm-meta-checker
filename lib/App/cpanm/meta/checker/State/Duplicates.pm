@@ -21,7 +21,7 @@ has 'dists' => (
 sub seen_dist_version {
   my ( $self, $dist, $version ) = @_;
   if ( not exists $self->dists->{$dist} ) {
-    $self->dists->{$dist} = App::cpanm::meta::checker::State::Duplicate::Dist->new();
+    $self->dists->{$dist} = App::cpanm::meta::checker::State::Duplicates::Dist->new();
   }
   return $self->dists->{$dist}->seen_version($version);
 }
