@@ -1,6 +1,11 @@
 #!perl
+use 5.008;    # utf8
 use strict;
 use warnings;
+use utf8;
+
+package       # hide
+  App::cpan::meta::checker::main;
 
 # PODNAME: cpan-meta-checker
 
