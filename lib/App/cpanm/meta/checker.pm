@@ -405,7 +405,7 @@ Returns all child nodes of all C<search_dirs>
 
   search_dirs = ['foo','bar' ]
   all_search_dir_children()
-    → ( 
+    → (
         path( 'foo' )->children,
         path( 'bar' )->children,
       )
