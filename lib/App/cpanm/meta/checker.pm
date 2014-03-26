@@ -312,6 +312,8 @@ sub run_command {
 
 
 
+
+
 sub new_from_command {
   my ( $class, %defaults ) = @_;
 
@@ -465,6 +467,8 @@ This presently just prepends the C<list> test to the test list.
 May be invoked multiple times to define all tests wanted.
 
   --test develop_requires --test runtime_suggests
+
+=back
 
 =head1 ATTRIBUTES
 
