@@ -87,6 +87,10 @@ use Config qw(%Config);
 use Carp qw(croak);
 use Getopt::Long;
 
+
+
+
+
 has 'search_dirs' => (
   is      => 'ro',
   lazy    => 1,
@@ -97,10 +101,31 @@ has 'search_dirs' => (
   },
 );
 
+
+
+
+
+
+
+
+
 sub all_search_dirs {
   my ($self) = @_;
   return @{ $self->search_dirs };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 sub all_search_dir_child {
   my ( $self, @childpath ) = @_;
@@ -110,12 +135,31 @@ sub all_search_dir_child {
   return @{ [ sort @answers ] };
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sub all_search_dir_children {
   my ($self) = @_;
   my @answers = map { path($_)->children } @{ $self->search_dirs };
   return @answers unless $self->sorted;
   return @{ [ sort @answers ] };
 }
+
+
+
+
 
 has 'tests' => (
   is      => ro =>,
@@ -128,11 +172,19 @@ has 'tests' => (
   },
 );
 
+
+
+
+
 has 'sorted' => (
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return; },
 );
+
+
+
+
 
 has 'mode' => (
   is      => ro  =>,
@@ -220,11 +272,19 @@ sub check_all {
   return;
 }
 
+
+
+
+
 sub run_command {
   my ($self) = @_;
   return $self->check_all if 'all' eq $self->mode;
   return;
 }
+
+
+
+
 
 sub new_from_command {
   my ( $class, %defaults ) = @_;
@@ -294,6 +354,36 @@ is also a prototype for a tool-chain standard checker.
 
 =head1 METHODS
 
+=head2 C<all_search_dirs>
+
+  my @dirs =  $checker->all_search_dirs
+
+See L</search_dirs>
+
+=head2 C<all_search_dir_child>
+
+  my @items = $checker->all_search_dir_child( 'some','path' );
+
+Returns all paths in all C<search_dirs> that exist with the given name.
+
+  search_dirs = [ 'foo', 'bar' ]
+  all_search_dir_child('baz')
+    → foo/baz → exists(Y) → output
+    → bar/baz → exists(N) → omitted
+
+=head2 C<all_search_dir_children>
+
+  my @items = $checker->all_search_dir_children();
+
+Returns all child nodes of all C<search_dirs>
+
+  search_dirs = ['foo','bar' ]
+  all_search_dir_children()
+    → ( 
+        path( 'foo' )->children,
+        path( 'bar' )->children,
+      )
+
 =head2 C<check_path>
 
     ->check_path('./foo/bar/baz');
@@ -319,6 +409,20 @@ Note: There may be directories residual from past installs.
     ->check_all
 
 Check meta-data for all installed distributions.
+
+=head2 C<run_command>
+
+=head2 C<new_from_command>
+
+=head1 ATTRIBUTES
+
+=head2 C<search_dirs>
+
+=head2 C<tests>
+
+=head2 C<sorted>
+
+=head2 C<mode>
 
 =head1 DEFAULT TEST SET
 
