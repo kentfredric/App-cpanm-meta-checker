@@ -87,6 +87,10 @@ use Config qw(%Config);
 use Carp qw(croak);
 use Getopt::Long;
 
+=attr C<search_dirs>
+
+=cut
+
 has 'search_dirs' => (
   is      => 'ro',
   lazy    => 1,
@@ -97,10 +101,31 @@ has 'search_dirs' => (
   },
 );
 
+=method C<all_search_dirs>
+
+  my @dirs =  $checker->all_search_dirs
+
+See L</search_dirs>
+
+=cut
+
 sub all_search_dirs {
   my ($self) = @_;
   return @{ $self->search_dirs };
 }
+
+=method C<all_search_dir_child>
+
+  my @items = $checker->all_search_dir_child( 'some','path' );
+
+Returns all paths in all C<search_dirs> that exist with the given name.
+
+  search_dirs = [ 'foo', 'bar' ]
+  all_search_dir_child('baz')
+    → foo/baz → exists(Y) → output
+    → bar/baz → exists(N) → omitted
+
+=cut
 
 sub all_search_dir_child {
   my ( $self, @childpath ) = @_;
@@ -110,12 +135,40 @@ sub all_search_dir_child {
   return @{ [ sort @answers ] };
 }
 
+=method C<all_search_dir_children>
+
+  my @items = $checker->all_search_dir_children();
+
+Returns all child nodes of all C<search_dirs>
+
+  search_dirs = ['foo','bar' ]
+  all_search_dir_children()
+    → (
+        path( 'foo' )->children,
+        path( 'bar' )->children,
+      )
+
+=cut
+
 sub all_search_dir_children {
   my ($self) = @_;
   my @answers = map { path($_)->children } @{ $self->search_dirs };
   return @answers unless $self->sorted;
   return @{ [ sort @answers ] };
 }
+
+=attr C<tests>
+
+The tests to execute.
+
+Default:
+
+    [
+      'list_empty',               'list_duplicates',        'check_runtime_requires',
+      'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+    ];
+
+=cut
 
 has 'tests' => (
   is      => ro =>,
@@ -128,11 +181,37 @@ has 'tests' => (
   },
 );
 
+=attr C<sorted>
+
+Iteration order of C<.meta> directory.
+
+=over 4
+
+=item C<false> - not sorted
+
+=item C<true> - alphanumerically sorted
+
+=back
+
+=cut
+
 has 'sorted' => (
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return; },
 );
+
+=attr C<mode>
+
+Defines execution mode:
+
+=over 4
+
+=item C<all> - Perform tests on all available distributions
+
+=back
+
+=cut
 
 has 'mode' => (
   is      => ro  =>,
@@ -220,11 +299,51 @@ sub check_all {
   return;
 }
 
+=method C<run_command>
+
+  $checker->run_command;
+
+Execute test mode defined by C<mode>
+
+=cut
+
 sub run_command {
   my ($self) = @_;
   return $self->check_all if 'all' eq $self->mode;
   return;
 }
+
+=method C<new_from_command>
+
+This is the command interface invoked by C<cpan-meta-checker> that cherry picks options with C<Getopt>.
+
+  my $instance = App::cpanm::meta::checker->new(
+    %constructor_defaults
+  );
+
+This creates an instance where C<%constructor_defaults> are overridden by relevant command line arguments.
+
+=head3 C<Command Line Arguments>
+
+=over 4
+
+=item * C<-s|--sort> - Process C<dist> directories in alphanumeric order.
+
+=item * C<-A|--all> - Check All distributions on the system
+
+=item * C<--verbose> - Turn on extra verbosity
+
+This presently just prepends the C<list> test to the test list.
+
+=item * C<--test foo> - Test only test C<foo>
+
+May be invoked multiple times to define all tests wanted.
+
+  --test check_develop_requires --test check_runtime_suggests
+
+=back
+
+=cut
 
 sub new_from_command {
   my ( $class, %defaults ) = @_;
