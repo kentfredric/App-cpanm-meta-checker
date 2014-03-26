@@ -120,7 +120,7 @@ ATTRIBUTES
         ];
 
   "sorted"
-    Iteration order of ".meta" dir.
+    Iteration order of ".meta" directory.
 
     "false" - not sorted
     "true" - alphanumerically sorted

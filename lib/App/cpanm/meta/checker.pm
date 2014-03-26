@@ -522,7 +522,7 @@ Default:
 
 =head2 C<sorted>
 
-Iteration order of C<.meta> dir.
+Iteration order of C<.meta> directory.
 
 =over 4
 
