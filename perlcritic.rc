@@ -235,7 +235,7 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [Modules::ProhibitModuleShebang]
 
-[-Modules::ProhibitMultiplePackages]
+[Modules::ProhibitMultiplePackages]
 
 [Modules::ProhibitPOSIXimport]
 
