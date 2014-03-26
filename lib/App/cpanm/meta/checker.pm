@@ -161,6 +161,15 @@ sub all_search_dir_children {
 
 
 
+
+
+
+
+
+
+
+
+
 has 'tests' => (
   is      => ro =>,
   lazy    => 1,
@@ -176,11 +185,29 @@ has 'tests' => (
 
 
 
+
+
+
+
+
+
+
+
+
+
 has 'sorted' => (
   is      => ro  =>,
   lazy    => 1,
   builder => sub { return; },
 );
+
+
+
+
+
+
+
+
 
 
 
@@ -271,6 +298,10 @@ sub check_all {
   }
   return;
 }
+
+
+
+
 
 
 
@@ -440,6 +471,10 @@ Check meta-data for all installed distributions.
 
 =head2 C<run_command>
 
+  $checker->run_command;
+
+Execute test mode defined by C<mode>
+
 =head2 C<new_from_command>
 
 This is the command interface invoked by C<cpan-meta-checker> that cherry picks options with C<Getopt>.
@@ -466,7 +501,7 @@ This presently just prepends the C<list> test to the test list.
 
 May be invoked multiple times to define all tests wanted.
 
-  --test develop_requires --test runtime_suggests
+  --test check_develop_requires --test check_runtime_suggests
 
 =back
 
@@ -476,9 +511,36 @@ May be invoked multiple times to define all tests wanted.
 
 =head2 C<tests>
 
+The tests to execute.
+
+Default:
+
+    [
+      'list_empty',               'list_duplicates',        'check_runtime_requires',
+      'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+    ];
+
 =head2 C<sorted>
 
+Iteration order of C<.meta> dir.
+
+=over 4
+
+=item C<false> - not sorted
+
+=item C<true> - alphanumerically sorted
+
+=back
+
 =head2 C<mode>
+
+Defines execution mode:
+
+=over 4
+
+=item C<all> - Perform tests on all available distributions
+
+=back
 
 =head1 DEFAULT TEST SET
 

@@ -77,6 +77,10 @@ METHODS
     Check meta-data for all installed distributions.
 
   "run_command"
+      $checker->run_command;
+
+    Execute test mode defined by "mode"
+
   "new_from_command"
     This is the command interface invoked by "cpan-meta-checker" that cherry
     picks options with "Getopt".
@@ -101,13 +105,31 @@ METHODS
 
         May be invoked multiple times to define all tests wanted.
 
-          --test develop_requires --test runtime_suggests
+          --test check_develop_requires --test check_runtime_suggests
 
 ATTRIBUTES
   "search_dirs"
   "tests"
+    The tests to execute.
+
+    Default:
+
+        [
+          'list_empty',               'list_duplicates',        'check_runtime_requires',
+          'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+        ];
+
   "sorted"
+    Iteration order of ".meta" dir.
+
+    "false" - not sorted
+    "true" - alphanumerically sorted
+
   "mode"
+    Defines execution mode:
+
+    "all" - Perform tests on all available distributions
+
 DEFAULT TEST SET
         list_empty
         list_duplicates
