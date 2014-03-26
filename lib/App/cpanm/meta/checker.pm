@@ -286,6 +286,32 @@ sub run_command {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sub new_from_command {
   my ( $class, %defaults ) = @_;
 
@@ -413,6 +439,32 @@ Check meta-data for all installed distributions.
 =head2 C<run_command>
 
 =head2 C<new_from_command>
+
+This is the command interface invoked by C<cpan-meta-checker> that cherry picks options with C<Getopt>.
+
+  my $instance = App::cpanm::meta::checker->new(
+    %constructor_defaults
+  );
+
+This creates an instance where C<%constructor_defaults> are overridden by relevant command line arguments.
+
+=head3 C<Command Line Arguments>
+
+=over 4
+
+=item * C<-s|--sort> - Process C<dist> directories in alphanumeric order.
+
+=item * C<-A|--all> - Check All distributions on the system
+
+=item * C<--verbose> - Turn on extra verbosity
+
+This presently just prepends the C<list> test to the test list.
+
+=item * C<--test foo> - Test only test C<foo>
+
+May be invoked multiple times to define all tests wanted.
+
+  --test develop_requires --test runtime_suggests
 
 =head1 ATTRIBUTES
 
