@@ -83,7 +83,7 @@ x_BuiltWith:
     Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled: '0.001000'
     Dist::Zilla::Plugin::ReadmeAnyFromPod: '0.133360'
     Dist::Zilla::Plugin::ReadmeFromPod: '0.21'
-    Dist::Zilla::Plugin::RunExtraTests: '0.020'
+    Dist::Zilla::Plugin::RunExtraTests: '0.021'
     Dist::Zilla::Plugin::Test::CPAN::Changes: '0.008'
     Dist::Zilla::Plugin::Test::Compile::PerFile: '0.001001'
     Dist::Zilla::Plugin::Test::Kwalitee: '2.07'
@@ -95,7 +95,7 @@ x_BuiltWith:
     Dist::Zilla::Plugin::UploadToCPAN: '5.014'
     Dist::Zilla::PluginBundle::Author::KENTNL: '2.012001'
     Dist::Zilla::PluginBundle::Author::KENTNL::Lite: 1.7.2
-    ExtUtils::MakeMaker: '6.92'
+    ExtUtils::MakeMaker: '6.94'
     File::Spec::Functions: '3.47'
     Getopt::Long: '2.42'
     List::Util: '1.38'
@@ -410,7 +410,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::TestRunner:
           default_jobs: 10
       name: '@Author::KENTNL/RunExtraTests'
-      version: '0.020'
+      version: '0.021'
     -
       class: Dist::Zilla::Plugin::TestRelease
       name: '@Author::KENTNL/TestRelease'
