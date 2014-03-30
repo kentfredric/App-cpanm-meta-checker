@@ -16,11 +16,19 @@ use CPAN::Meta::Check qw(verify_dependencies);
 use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
+=attr C<tests>
+
+=cut
+
 has 'tests' => (
   is       => ro =>,
   lazy     => 1,
   required => 1,
 );
+
+=attr C<list_fd>
+
+=cut
 
 has 'list_fd' => (
   is      => ro =>,
@@ -43,16 +51,28 @@ sub _output {
   return $self->list_fd->printf( qq[%s: %s\n], $prefix, $message );
 }
 
+=method C<x_test_list>
+
+=cut
+
 sub x_test_list {
   my ( $self, $path, ) = @_;
   return $self->_output( 'list', path($path)->basename );
 }
+
+=method C<x_test_list_nonempty>
+
+=cut
 
 sub x_test_list_nonempty {
   my ( $self, $path ) = @_;
   return unless path($path)->children;
   return $self->_output( 'list_nonempty', path($path)->basename );
 }
+
+=method C<x_test_list_empty>
+
+=cut
 
 sub x_test_list_empty {
   my ( $self, $path ) = @_;
@@ -72,6 +92,10 @@ my $distversion_re = qr{
     )
     \z
 }msx;
+
+=method C<x_test_list_duplicates>
+
+=cut
 
 sub x_test_list_duplicates {
   my ( $self, $path ) = @_;
@@ -110,6 +134,48 @@ sub _cpan_meta_check_phase_type {
   }
   return;
 }
+
+=method C<x_test_check_runtime_requires>
+
+=method C<x_test_check_runtime_suggests>
+
+=method C<x_test_check_runtime_conflicts>
+
+=method C<x_test_check_runtime_recommends>
+
+=method C<x_test_check_configure_requires>
+
+=method C<x_test_check_configure_suggests>
+
+=method C<x_test_check_configure_conflicts>
+
+=method C<x_test_check_configure_recommends>
+
+=method C<x_test_check_build_requires>
+
+=method C<x_test_check_build_suggests>
+
+=method C<x_test_check_build_conflicts>
+
+=method C<x_test_check_build_recommends>
+
+=method C<x_test_check_develop_requires>
+
+=method C<x_test_check_develop_suggests>
+
+=method C<x_test_check_develop_conflicts>
+
+=method C<x_test_check_develop_recommends>
+
+=method C<x_test_check_test_requires>
+
+=method C<x_test_check_test_suggests>
+
+=method C<x_test_check_test_conflicts>
+
+=method C<x_test_check_test_recommends>
+
+=cut
 
 for my $phase (qw( runtime configure build develop test )) {
   for my $rel (qw( requires suggests conflicts recommends )) {
