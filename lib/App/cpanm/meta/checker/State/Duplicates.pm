@@ -98,24 +98,24 @@ version 0.001001
 
 =head1 METHODS
 
-=head2 C<→seen_dist_version>
+=head2 C<seen_dist_version>
 
   ->seen_dist_version( 'Dist-Name', '5.000' );
 
-=head2 C<→has_duplicates>
+=head2 C<has_duplicates>
 
   if ( $o->has_duplicates( 'Dist-Name' ) ) {
     ...
   }
 
-=head2 C<→reported_duplicates>
+=head2 C<reported_duplicates>
 
   if ( not $o->reported_duplicates('Dist-Name') ) {
     /* report dups  */
     $o->reported_duplicates('Dist-Name', 1);
   }
 
-=head2 C<→duplicate_versions>
+=head2 C<duplicate_versions>
 
   for my $v ( $o->duplicate_versions('Dist-Name') ) {
 
