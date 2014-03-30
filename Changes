@@ -1,6 +1,8 @@
 Release history for App-cpanm-meta-checker
 
 {{$NEXT}}
+
+0.001001 2014-03-30T20:31:50Z
  [Bugfix]
  - Fix failure to install bin script
  - Add basic coverage docs
