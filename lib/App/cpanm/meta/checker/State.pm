@@ -16,11 +16,19 @@ use CPAN::Meta::Check qw(verify_dependencies);
 use App::cpanm::meta::checker::State::Duplicates;
 use Path::Tiny qw(path);
 
+
+
+
+
 has 'tests' => (
   is       => ro =>,
   lazy     => 1,
   required => 1,
 );
+
+
+
+
 
 has 'list_fd' => (
   is      => ro =>,
@@ -43,16 +51,28 @@ sub _output {
   return $self->list_fd->printf( qq[%s: %s\n], $prefix, $message );
 }
 
+
+
+
+
 sub x_test_list {
   my ( $self, $path, ) = @_;
   return $self->_output( 'list', path($path)->basename );
 }
+
+
+
+
 
 sub x_test_list_nonempty {
   my ( $self, $path ) = @_;
   return unless path($path)->children;
   return $self->_output( 'list_nonempty', path($path)->basename );
 }
+
+
+
+
 
 sub x_test_list_empty {
   my ( $self, $path ) = @_;
@@ -72,6 +92,11 @@ my $distversion_re = qr{
     )
     \z
 }msx;
+
+
+
+
+
 
 sub x_test_list_duplicates {
   my ( $self, $path ) = @_;
@@ -110,6 +135,48 @@ sub _cpan_meta_check_phase_type {
   }
   return;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 for my $phase (qw( runtime configure build develop test )) {
   for my $rel (qw( requires suggests conflicts recommends )) {
@@ -174,11 +241,65 @@ version 0.001001
 
 =head1 METHODS
 
+=head2 C<x_test_list>
+
+=head2 C<x_test_list_nonempty>
+
+=head2 C<x_test_list_empty>
+
+=head2 C<x_test_list_duplicates>
+
+=head2 C<x_test_check_runtime_requires>
+
+=head2 C<x_test_check_runtime_suggests>
+
+=head2 C<x_test_check_runtime_conflicts>
+
+=head2 C<x_test_check_runtime_recommends>
+
+=head2 C<x_test_check_configure_requires>
+
+=head2 C<x_test_check_configure_suggests>
+
+=head2 C<x_test_check_configure_conflicts>
+
+=head2 C<x_test_check_configure_recommends>
+
+=head2 C<x_test_check_build_requires>
+
+=head2 C<x_test_check_build_suggests>
+
+=head2 C<x_test_check_build_conflicts>
+
+=head2 C<x_test_check_build_recommends>
+
+=head2 C<x_test_check_develop_requires>
+
+=head2 C<x_test_check_develop_suggests>
+
+=head2 C<x_test_check_develop_conflicts>
+
+=head2 C<x_test_check_develop_recommends>
+
+=head2 C<x_test_check_test_requires>
+
+=head2 C<x_test_check_test_suggests>
+
+=head2 C<x_test_check_test_conflicts>
+
+=head2 C<x_test_check_test_recommends>
+
 =head2 C<check_path>
 
     ->check_path('./foo/bar/baz');
 
 Read the content from C<./foo/bar/baz> and check its consistency.
+
+=head1 ATTRIBUTES
+
+=head2 C<tests>
+
+=head2 C<list_fd>
 
 =head1 AUTHOR
 
