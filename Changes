@@ -1,6 +1,12 @@
 Release history for App-cpanm-meta-checker
 
 {{$NEXT}}
+ [Dependencies::Stats]
+ - Dependencies changed since 0.001000, see Changes.deps{,.all,.dev} for
+   details
+ - configure: (optional: ↑1)
+ - develop: +2 ↑1
+ - test: (optional: ↑2)
 
 0.001000 2014-03-15T23:23:56Z
  - First version.
