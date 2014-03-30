@@ -1,6 +1,11 @@
 Release history for App-cpanm-meta-checker
 
 {{$NEXT}}
+ [Bugfix]
+ - Fix failure to install bin script
+ - Add basic coverage docs
+ - Resolve failure to be tidy
+
  [Dependencies::Stats]
  - Dependencies changed since 0.001000, see Changes.deps{,.all,.dev} for
    details
