@@ -11,11 +11,19 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
 use Moo qw( has );
 
+
+
+
+
 has 'reported' => (
   is      => rw  =>,
   lazy    => 1,
   builder => sub { return; },
 );
+
+
+
+
 
 has 'versions' => (
   is   => ro =>,
@@ -23,16 +31,40 @@ has 'versions' => (
   builder => sub { return {} },
 );
 
+
+
+
+
+
+
+
+
 sub has_duplicates {
   my ($self) = @_;
   return ( keys %{ $self->versions } > 1 );
 }
+
+
+
+
+
+
+
+
 
 sub seen_version {
   my ( $self, $version ) = @_;
   $self->versions->{$version} = 1;
   return;
 }
+
+
+
+
+
+
+
+
 
 sub duplicate_versions {
   my ($self) = @_;
@@ -56,6 +88,32 @@ App::cpanm::meta::checker::State::Duplicates::Dist - State information for recor
 =head1 VERSION
 
 version 0.001001
+
+=head1 METHODS
+
+=head2 C<has_duplicates>
+
+  if ( $o->has_duplicates() ) {
+
+  }
+
+=head2 C<seen_version>
+
+Mark version seen:
+
+  $o->seen_version('1.0');
+
+=head2 C<duplicate_versions>
+
+  for my $version ( $o->duplicate_versions ) {
+
+  }
+
+=head1 ATTRIBUTES
+
+=head2 C<reported>
+
+=head2 C<versions>
 
 =head1 AUTHOR
 
