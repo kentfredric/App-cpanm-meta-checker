@@ -16,38 +16,38 @@ my @buildcandidates = grep { $_->is_dir }
   grep { $_->basename =~ /\AApp-cpanm-meta-checker-/ } $root->children;
 
 if ( not @buildcandidates ) {
-    die "No build candidates";
+  die "No build candidates";
 }
 my ($last) =
   [ sort { $b->stat->mtime <=> $a->stat->mtime } @buildcandidates ]->[0];
 print "Making fatlib using $last\n";
 
 sub withlib(&) {
-    my ($code) = @_;
-    my $oldopts = $ENV{PERL5OPT} || '';
-    my @oldlib = split /:/, $ENV{PERL5LIB} || '';
+  my ($code) = @_;
+  my $oldopts = $ENV{PERL5OPT} || '';
+  my @oldlib = split /:/, $ENV{PERL5LIB} || '';
 
-    #    local $ENV{PERL5OPT} = "$oldopts -I${last}/lib";
-    local $ENV{PERL5LIB} = join q[:], $last->child('lib'), @oldlib;
+  #    local $ENV{PERL5OPT} = "$oldopts -I${last}/lib";
+  local $ENV{PERL5LIB} = join q[:], $last->child('lib'), @oldlib;
 
-    #STDERR->print("\e[31mPERL5OPT=$ENV{PERL5OPT}\e[0m\n");
-    return $code->();
+  #STDERR->print("\e[31mPERL5OPT=$ENV{PERL5OPT}\e[0m\n");
+  return $code->();
 }
 
 sub inbuild(&) {
-    my ($code) = @_;
-    chdir $last;
-    $code->();
-    chdir $cwd;
+  my ($code) = @_;
+  chdir $last;
+  $code->();
+  chdir $cwd;
 }
 inbuild {
-    withlib {
-        STDERR->print("Packing...\n");
+  withlib {
+    STDERR->print("Packing...\n");
 
-        my $file = capture_stdout {
-            system( 'fatpack', 'file', $last->child('bin/cpanm-meta-checker') );
-        };
-        $cwd->child('bin/cpanm-meta-checker.fatpack')->spew_raw($file);
+    my $file = capture_stdout {
+      system( 'fatpack', 'file', $last->child('bin/cpanm-meta-checker') );
     };
+    $cwd->child('bin/cpanm-meta-checker.fatpack')->spew_raw($file);
+  };
 };
 

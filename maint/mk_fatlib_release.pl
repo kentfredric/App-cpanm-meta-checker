@@ -15,29 +15,29 @@ my ($last) = $root;
 print "Making fatlib using $root\n";
 
 sub withlib(&) {
-    my ($code) = @_;
-    my $oldopts = $ENV{PERL5OPT} || '';
-    my @oldlib = split /:/, $ENV{PERL5LIB} || '';
+  my ($code) = @_;
+  my $oldopts = $ENV{PERL5OPT} || '';
+  my @oldlib = split /:/, $ENV{PERL5LIB} || '';
 
-    #    local $ENV{PERL5OPT} = "$oldopts -I${last}/lib";
-    local $ENV{PERL5LIB} = join q[:], $last->child('lib'), @oldlib;
+  #    local $ENV{PERL5OPT} = "$oldopts -I${last}/lib";
+  local $ENV{PERL5LIB} = join q[:], $last->child('lib'), @oldlib;
 
-    #STDERR->print("\e[31mPERL5OPT=$ENV{PERL5OPT}\e[0m\n");
-    return $code->();
+  #STDERR->print("\e[31mPERL5OPT=$ENV{PERL5OPT}\e[0m\n");
+  return $code->();
 }
 
 sub inbuild(&) {
-    my ($code) = @_;
-    chdir $last;
-    $code->();
-    chdir $cwd;
+  my ($code) = @_;
+  chdir $last;
+  $code->();
+  chdir $cwd;
 }
 
 inbuild {
-    withlib {
-        STDERR->print("Tracing module load...\n");
-        system( 'fatpack', 'trace', 'bin/cpanm-meta-checker' ) == 0 or die;
-    };
+  withlib {
+    STDERR->print("Tracing module load...\n");
+    system( 'fatpack', 'trace', 'bin/cpanm-meta-checker' ) == 0 or die;
+  };
 };
 
 my (@modules) =
@@ -45,11 +45,11 @@ my (@modules) =
 my $packlists;
 STDERR->print("Generating packlist list...\n");
 inbuild {
-    withlib {
-        $packlists = capture_stdout {
-            system( 'fatpack', 'packlists-for', @modules );
-        };
+  withlib {
+    $packlists = capture_stdout {
+      system( 'fatpack', 'packlists-for', @modules );
     };
+  };
 };
 STDERR->print("Generating fatlib...\n");
 $cwd->child('fatlib')->remove_tree();
@@ -58,7 +58,7 @@ system( 'fatpack', 'tree', split /\n/, $packlists );
 my $it = $cwd->child('fatlib')->iterator( { recurse => 1 } );
 
 while ( my $item = $it->() ) {
-    next unless $item->basename =~ /.so\z/;
-    STDERR->print("Stripping $item as it is a .so\n");
-    unlink $item;
+  next unless $item->basename =~ /.so\z/;
+  STDERR->print("Stripping $item as it is a .so\n");
+  unlink $item;
 }

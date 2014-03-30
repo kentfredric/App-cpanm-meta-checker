@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker;
-$App::cpanm::meta::checker::VERSION = '0.001000';
+$App::cpanm::meta::checker::VERSION = '0.001001';
 # ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -87,60 +87,136 @@ use Config qw(%Config);
 use Carp qw(croak);
 use Getopt::Long;
 
+
+
+
+
 has 'search_dirs' => (
-    is      => 'ro',
-    lazy    => 1,
-    builder => sub {
-        my @paths;
-        push @paths,
-          path( $Config{sitelibexp} )->child( $Config{archname} )
-          ->child('.meta');
-        return \@paths;
-    },
+  is      => 'ro',
+  lazy    => 1,
+  builder => sub {
+    my @paths;
+    push @paths, path( $Config{sitelibexp} )->child( $Config{archname} )->child('.meta');
+    return \@paths;
+  },
 );
+
+
+
+
+
+
+
+
 
 sub all_search_dirs {
-    my ($self) = @_;
-    return @{ $self->search_dirs };
+  my ($self) = @_;
+  return @{ $self->search_dirs };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 sub all_search_dir_child {
-    my ( $self, @childpath ) = @_;
-    my @answers = grep { -e $_ }
-      map { path($_)->child(@childpath) } @{ $self->search_dirs };
-    return @answers unless $self->sorted;
-    return @{ [ sort @answers ] };
+  my ( $self, @childpath ) = @_;
+  my @answers = grep { -e $_ }
+    map { path($_)->child(@childpath) } @{ $self->search_dirs };
+  return @answers unless $self->sorted;
+  return @{ [ sort @answers ] };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 sub all_search_dir_children {
-    my ($self) = @_;
-    my @answers = map { path($_)->children } @{ $self->search_dirs };
-    return @answers unless $self->sorted;
-    return @{ [ sort @answers ] };
+  my ($self) = @_;
+  my @answers = map { path($_)->children } @{ $self->search_dirs };
+  return @answers unless $self->sorted;
+  return @{ [ sort @answers ] };
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 has 'tests' => (
-    is      => ro =>,
-    lazy    => 1,
-    builder => sub {
-        return [
-            'list_empty',             'list_duplicates',
-            'check_runtime_requires', 'check_runtime_recommends',
-            'check_runtime_suggests', 'check_runtime_conflicts',
-        ];
-    },
+  is      => ro =>,
+  lazy    => 1,
+  builder => sub {
+    return [
+      'list_empty',               'list_duplicates',        'check_runtime_requires',
+      'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+    ];
+  },
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 has 'sorted' => (
-    is      => ro  =>,
-    lazy    => 1,
-    builder => sub { return; },
+  is      => ro  =>,
+  lazy    => 1,
+  builder => sub { return; },
 );
 
+
+
+
+
+
+
+
+
+
+
+
+
 has 'mode' => (
-    is      => ro  =>,
-    lazy    => 1,
-    builder => sub { return 'all' },
+  is      => ro  =>,
+  lazy    => 1,
+  builder => sub { return 'all' },
 );
 
 
@@ -152,9 +228,9 @@ has 'mode' => (
 
 
 sub check_path {
-    my ( $self, $path ) = @_;
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
-    return $state->check_path($path);
+  my ( $self, $path ) = @_;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  return $state->check_path($path);
 }
 
 
@@ -166,12 +242,12 @@ sub check_path {
 
 
 sub check_release {
-    my ( $self, $releasename ) = @_;
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
-    for my $dir ( $self->all_search_dir_child($releasename) ) {
-        $state->check_path($dir);
-    }
-    return;
+  my ( $self, $releasename ) = @_;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  for my $dir ( $self->all_search_dir_child($releasename) ) {
+    $state->check_path($dir);
+  }
+  return;
 }
 
 
@@ -185,12 +261,12 @@ sub check_release {
 
 
 sub check_distname {
-    my ( $self, $distname ) = @_;
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  my ( $self, $distname ) = @_;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
 
-    ## no critic (Compatibility::PerlMinimumVersionAndWhy)
-    # _Pulp__5010_qr_m_propagate_properly
-    my $distname_re = qr{
+  ## no critic (Compatibility::PerlMinimumVersionAndWhy)
+  # _Pulp__5010_qr_m_propagate_properly
+  my $distname_re = qr{
        \A
        \Q$distname\E
        -
@@ -199,12 +275,10 @@ sub check_distname {
        \z
     }msx;
 
-    for my $dir ( grep { path($_)->basename =~ $distname_re }
-        $self->all_search_dir_children )
-    {
-        $state->check_path($dir);
-    }
-    return;
+  for my $dir ( grep { path($_)->basename =~ $distname_re } $self->all_search_dir_children ) {
+    $state->check_path($dir);
+  }
+  return;
 }
 
 
@@ -216,50 +290,88 @@ sub check_distname {
 
 
 sub check_all {
-    my ($self) = @_;
+  my ($self) = @_;
 
-    my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
-    for my $dir ( $self->all_search_dir_children ) {
-        $state->check_path($dir);
-    }
-    return;
+  my $state = App::cpanm::meta::checker::State->new( tests => $self->tests );
+  for my $dir ( $self->all_search_dir_children ) {
+    $state->check_path($dir);
+  }
+  return;
 }
+
+
+
+
+
+
+
+
 
 sub run_command {
-    my ($self) = @_;
-    return $self->check_all if 'all' eq $self->mode;
-    return;
+  my ($self) = @_;
+  return $self->check_all if 'all' eq $self->mode;
+  return;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 sub new_from_command {
-    my ( $class, %defaults ) = @_;
+  my ( $class, %defaults ) = @_;
 
-    my $config = {};
-    my $verbose;
+  my $config = {};
+  my $verbose;
 
-    Getopt::Long::Configure( 'auto_version', 'auto_help' );
+  Getopt::Long::Configure( 'auto_version', 'auto_help' );
 
-    Getopt::Long::GetOptions(
-        's|sort!'  => \$config->{sorted},
-        'A|all!'   => sub { $config->{mode} = 'all' },
-        'verbose!' => sub {
-            $verbose = $_[0];
-        },
-        'test=s' => sub {
-            if (
-                not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) )
-            {
-                croak("No such test $_[1]");
-            }
-            push @{ $config->{tests} }, $_[1];
-        },
-    ) or croak(Getopt::Long::HelpMessage);
+  Getopt::Long::GetOptions(
+    's|sort!'  => \$config->{sorted},
+    'A|all!'   => sub { $config->{mode} = 'all' },
+    'verbose!' => sub {
+      $verbose = $_[0];
+    },
+    'test=s' => sub {
+      if ( not App::cpanm::meta::checker::State->can( 'x_test_' . $_[1] ) ) {
+        croak("No such test $_[1]");
+      }
+      push @{ $config->{tests} }, $_[1];
+    },
+  ) or croak(Getopt::Long::HelpMessage);
 
-    my $app_obj = $class->new( +{ %defaults, %{$config} } );
-    if ($verbose) {
-        unshift @{ $app_obj->tests }, 'list';
-    }
-    return $app_obj;
+  my $app_obj = $class->new( +{ %defaults, %{$config} } );
+  if ($verbose) {
+    unshift @{ $app_obj->tests }, 'list';
+  }
+  return $app_obj;
 }
 1;
 
@@ -275,7 +387,7 @@ App::cpanm::meta::checker - Verify and sanity check your installation verses cpa
 
 =head1 VERSION
 
-version 0.001000
+version 0.001001
 
 =head1 SYNOPSIS
 
@@ -300,6 +412,36 @@ for what may eventually become a tool-chain standard, this tool
 is also a prototype for a tool-chain standard checker.
 
 =head1 METHODS
+
+=head2 C<all_search_dirs>
+
+  my @dirs =  $checker->all_search_dirs
+
+See L</search_dirs>
+
+=head2 C<all_search_dir_child>
+
+  my @items = $checker->all_search_dir_child( 'some','path' );
+
+Returns all paths in all C<search_dirs> that exist with the given name.
+
+  search_dirs = [ 'foo', 'bar' ]
+  all_search_dir_child('baz')
+    → foo/baz → exists(Y) → output
+    → bar/baz → exists(N) → omitted
+
+=head2 C<all_search_dir_children>
+
+  my @items = $checker->all_search_dir_children();
+
+Returns all child nodes of all C<search_dirs>
+
+  search_dirs = ['foo','bar' ]
+  all_search_dir_children()
+    → (
+        path( 'foo' )->children,
+        path( 'bar' )->children,
+      )
 
 =head2 C<check_path>
 
@@ -326,6 +468,79 @@ Note: There may be directories residual from past installs.
     ->check_all
 
 Check meta-data for all installed distributions.
+
+=head2 C<run_command>
+
+  $checker->run_command;
+
+Execute test mode defined by C<mode>
+
+=head2 C<new_from_command>
+
+This is the command interface invoked by C<cpan-meta-checker> that cherry picks options with C<Getopt>.
+
+  my $instance = App::cpanm::meta::checker->new(
+    %constructor_defaults
+  );
+
+This creates an instance where C<%constructor_defaults> are overridden by relevant command line arguments.
+
+=head3 C<Command Line Arguments>
+
+=over 4
+
+=item * C<-s|--sort> - Process C<dist> directories in alphanumeric order.
+
+=item * C<-A|--all> - Check All distributions on the system
+
+=item * C<--verbose> - Turn on extra verbosity
+
+This presently just prepends the C<list> test to the test list.
+
+=item * C<--test foo> - Test only test C<foo>
+
+May be invoked multiple times to define all tests wanted.
+
+  --test check_develop_requires --test check_runtime_suggests
+
+=back
+
+=head1 ATTRIBUTES
+
+=head2 C<search_dirs>
+
+=head2 C<tests>
+
+The tests to execute.
+
+Default:
+
+    [
+      'list_empty',               'list_duplicates',        'check_runtime_requires',
+      'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+    ];
+
+=head2 C<sorted>
+
+Iteration order of C<.meta> directory.
+
+=over 4
+
+=item C<false> - not sorted
+
+=item C<true> - alphanumerically sorted
+
+=back
+
+=head2 C<mode>
+
+Defines execution mode:
+
+=over 4
+
+=item C<all> - Perform tests on all available distributions
+
+=back
 
 =head1 DEFAULT TEST SET
 
