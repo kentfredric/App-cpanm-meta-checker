@@ -97,7 +97,6 @@ my $distversion_re = qr{
 
 
 
-
 sub x_test_list_duplicates {
   my ( $self, $path ) = @_;
   my $basename = path($path)->basename;
