@@ -124,7 +124,7 @@ allow_includes = 1
 
 [Documentation::PodSpelling]
 spell_command = aspell list --lang en_US
-stop_words = cpanm
+stop_words = cpanm cpan prepends
 
 [Documentation::ProhibitAdjacentLinks]
 
@@ -235,7 +235,7 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 
 [Modules::ProhibitModuleShebang]
 
-[-Modules::ProhibitMultiplePackages]
+[Modules::ProhibitMultiplePackages]
 
 [Modules::ProhibitPOSIXimport]
 

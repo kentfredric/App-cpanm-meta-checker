@@ -3,7 +3,7 @@ NAME
     verses cpanm meta files
 
 VERSION
-    version 0.001000
+    version 0.001001
 
 SYNOPSIS
         cpanm-meta-checker --all --verbose
@@ -26,6 +26,33 @@ DESCRIPTION
     for a tool-chain standard checker.
 
 METHODS
+  "all_search_dirs"
+      my @dirs =  $checker->all_search_dirs
+
+    See "search_dirs"
+
+  "all_search_dir_child"
+      my @items = $checker->all_search_dir_child( 'some','path' );
+
+    Returns all paths in all "search_dirs" that exist with the given name.
+
+      search_dirs = [ 'foo', 'bar' ]
+      all_search_dir_child('baz')
+        → foo/baz → exists(Y) → output
+        → bar/baz → exists(N) → omitted
+
+  "all_search_dir_children"
+      my @items = $checker->all_search_dir_children();
+
+    Returns all child nodes of all "search_dirs"
+
+      search_dirs = ['foo','bar' ]
+      all_search_dir_children()
+        → (
+            path( 'foo' )->children,
+            path( 'bar' )->children,
+          )
+
   "check_path"
         ->check_path('./foo/bar/baz');
 
@@ -48,6 +75,60 @@ METHODS
         ->check_all
 
     Check meta-data for all installed distributions.
+
+  "run_command"
+      $checker->run_command;
+
+    Execute test mode defined by "mode"
+
+  "new_from_command"
+    This is the command interface invoked by "cpan-meta-checker" that cherry
+    picks options with "Getopt".
+
+      my $instance = App::cpanm::meta::checker->new(
+        %constructor_defaults
+      );
+
+    This creates an instance where %constructor_defaults are overridden by
+    relevant command line arguments.
+
+   "Command Line Arguments"
+    *   "-s|--sort" - Process "dist" directories in alphanumeric order.
+
+    *   "-A|--all" - Check All distributions on the system
+
+    *   "--verbose" - Turn on extra verbosity
+
+        This presently just prepends the "list" test to the test list.
+
+    *   "--test foo" - Test only test "foo"
+
+        May be invoked multiple times to define all tests wanted.
+
+          --test check_develop_requires --test check_runtime_suggests
+
+ATTRIBUTES
+  "search_dirs"
+  "tests"
+    The tests to execute.
+
+    Default:
+
+        [
+          'list_empty',               'list_duplicates',        'check_runtime_requires',
+          'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
+        ];
+
+  "sorted"
+    Iteration order of ".meta" directory.
+
+    "false" - not sorted
+    "true" - alphanumerically sorted
+
+  "mode"
+    Defines execution mode:
+
+    "all" - Perform tests on all available distributions
 
 DEFAULT TEST SET
         list_empty

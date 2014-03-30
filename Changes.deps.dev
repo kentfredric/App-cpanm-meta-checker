@@ -1,0 +1,8 @@
+0.001001
+ [Added / develop requires]
+ - Pod::Coverage::TrustPod
+ - Test::Pod::Coverage 1.08
+
+ [Changed / develop requires]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.012000 → 2.012001
+
