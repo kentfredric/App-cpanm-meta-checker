@@ -8,6 +8,7 @@ MANIFEST
 META.json
 META.yml
 Makefile.PL
+README
 bin/cpanm-meta-checker
 dist.ini
 dist.ini.meta
