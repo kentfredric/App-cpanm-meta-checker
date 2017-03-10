@@ -2,7 +2,7 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
 
 0.001002
  [Added / develop recommends]
- - Test::More 1.302073
+ - Test::More 0.99
 
  [Added / develop requires]
  - Dist::Zilla 5
@@ -14,6 +14,7 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Dist::Zilla::Plugin::Git::Contributors 0.006
  - Dist::Zilla::Plugin::MetaYAML::Minimal
  - Dist::Zilla::Plugin::Prereqs::AuthorDeps
+ - Dist::Zilla::Plugin::Prereqs::Upgrade
  - Dist::Zilla::Plugin::PruneFiles
  - Dist::Zilla::Plugin::Readme::Brief
  - Dist::Zilla::Plugin::Test::EOL
