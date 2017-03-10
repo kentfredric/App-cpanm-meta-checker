@@ -14,6 +14,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Dist::Zilla::Plugin::Git::Contributors 0.006
  - Dist::Zilla::Plugin::Prereqs::AuthorDeps
  - Dist::Zilla::Plugin::PruneFiles
+ - Dist::Zilla::Plugin::Test::EOL
  - English
  - Software::License::Perl_5
  - Test::EOL

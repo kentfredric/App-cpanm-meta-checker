@@ -202,17 +202,16 @@ x_Dist_Zilla:
       name: '@Author::KENTNL/Test::Kwalitee'
       version: '2.12'
     -
-      class: Dist::Zilla::Plugin::EOLTests
+      class: Dist::Zilla::Plugin::Test::EOL
       config:
         Dist::Zilla::Plugin::Test::EOL:
-          filename: xt/release/eol.t
+          filename: xt/author/eol.t
           finder:
             - ':ExecFiles'
             - ':InstallModules'
             - ':TestFiles'
           trailing_whitespace: 1
-          version: '0.19'
-      name: '@Author::KENTNL/EOLTests'
+      name: '@Author::KENTNL/Test::EOL'
       version: '0.19'
     -
       class: Dist::Zilla::Plugin::Test::MinimumVersion
