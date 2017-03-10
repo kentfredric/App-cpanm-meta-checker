@@ -129,7 +129,7 @@ sub all_search_dirs {
 
 sub all_search_dir_child {
   my ( $self, @childpath ) = @_;
-  my @answers = grep { -e $_ }
+  my @answers = grep { -e }
     map { path($_)->child(@childpath) } @{ $self->search_dirs };
   return @answers unless $self->sorted;
   return @{ [ sort @answers ] };
