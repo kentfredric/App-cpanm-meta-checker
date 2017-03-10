@@ -33,7 +33,6 @@
             "Dist::Zilla::Plugin::AutoPrereqs" : "0",
             "Dist::Zilla::Plugin::Bootstrap::lib" : "0",
             "Dist::Zilla::Plugin::ConfirmRelease" : "0",
-            "Dist::Zilla::Plugin::EOLTests" : "0",
             "Dist::Zilla::Plugin::ExecDir" : "0",
             "Dist::Zilla::Plugin::Git::Check" : "0",
             "Dist::Zilla::Plugin::Git::Commit" : "0",
@@ -68,6 +67,7 @@
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::Test::CPAN::Changes" : "0",
             "Dist::Zilla::Plugin::Test::Compile::PerFile" : "0",
+            "Dist::Zilla::Plugin::Test::EOL" : "0",
             "Dist::Zilla::Plugin::Test::Kwalitee" : "0",
             "Dist::Zilla::Plugin::Test::MinimumVersion" : "0",
             "Dist::Zilla::Plugin::Test::Perl::Critic" : "0",
@@ -351,20 +351,19 @@
             "version" : "2.12"
          },
          {
-            "class" : "Dist::Zilla::Plugin::EOLTests",
+            "class" : "Dist::Zilla::Plugin::Test::EOL",
             "config" : {
                "Dist::Zilla::Plugin::Test::EOL" : {
-                  "filename" : "xt/release/eol.t",
+                  "filename" : "xt/author/eol.t",
                   "finder" : [
                      ":ExecFiles",
                      ":InstallModules",
                      ":TestFiles"
                   ],
-                  "trailing_whitespace" : 1,
-                  "version" : "0.19"
+                  "trailing_whitespace" : 1
                }
             },
-            "name" : "@Author::KENTNL/EOLTests",
+            "name" : "@Author::KENTNL/Test::EOL",
             "version" : "0.19"
          },
          {
