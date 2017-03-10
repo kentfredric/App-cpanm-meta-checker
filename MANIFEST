@@ -27,6 +27,7 @@ misc/Changes.deps
 misc/Changes.deps.all
 misc/Changes.deps.dev
 misc/Changes.deps.opt
+misc/built_with.json
 perlcritic.deps
 perlcritic.rc
 t/00-compile/lib_App_cpanm_meta_checker_State_Duplicates_Dist_pm.t
