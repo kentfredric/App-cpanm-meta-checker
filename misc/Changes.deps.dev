@@ -22,6 +22,10 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Test::MinimumVersion
  - Test::More 0.96
 
+ [Added / develop suggests]
+ - Dist::Zilla::App::Command::bakeini 0.001000
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.025021
+
  [Changed / develop requires]
  - Dist::Zilla::Plugin::Git::NextRelease 0 → 0.004000
  - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
@@ -31,6 +35,9 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  [Removed / develop requires]
  - Dist::Zilla::Plugin::EOLTests
  - Dist::Zilla::Plugin::MetaYAML
+
+ [Removed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL::Lite v1.3.0
 
 0.001001 2014-03-30T20:31:50Z
  [Added / develop requires]
