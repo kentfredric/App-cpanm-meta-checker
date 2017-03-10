@@ -30,6 +30,7 @@
          "requires" : {
             "Dist::Zilla" : "5",
             "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.004002",
+            "Dist::Zilla::Plugin::Author::KENTNL::TravisCI" : "0.001002",
             "Dist::Zilla::Plugin::Authority" : "1.006",
             "Dist::Zilla::Plugin::AutoPrereqs" : "0",
             "Dist::Zilla::Plugin::Bootstrap::lib" : "0",
@@ -325,6 +326,19 @@
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "@Author::KENTNL/Manifest",
             "version" : "6.009"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::KENTNL::TravisCI",
+            "config" : {
+               "Dist::Zilla::Plugin::Author::KENTNL::TravisCI" : {
+                  "fail_perls" : [
+                     "5.8"
+                  ],
+                  "skip_perls" : []
+               }
+            },
+            "name" : "@Author::KENTNL/Author::KENTNL::TravisCI",
+            "version" : "0.001004"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaTests",
