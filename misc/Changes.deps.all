@@ -20,6 +20,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Dist::Zilla::Plugin::Prereqs::Upgrade
  - Dist::Zilla::Plugin::PruneFiles
  - Dist::Zilla::Plugin::Readme::Brief
+ - Dist::Zilla::Plugin::RemovePrereqs::Provided
  - Dist::Zilla::Plugin::Test::EOL
  - English
  - Software::License::Perl_5
