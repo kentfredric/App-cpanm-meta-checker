@@ -8,6 +8,7 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Dist::Zilla 5
  - Dist::Zilla::Plugin::Bootstrap::lib
  - Dist::Zilla::Plugin::ExecDir
+ - Dist::Zilla::Plugin::Git::Contributors 0.006
  - Dist::Zilla::Plugin::Prereqs::AuthorDeps
  - Dist::Zilla::Plugin::PruneFiles
  - English
