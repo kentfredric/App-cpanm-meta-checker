@@ -5,7 +5,7 @@ use warnings;
 
 package App::cpan::meta::checker::_main;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # PODNAME: cpan-meta-checker
 
@@ -30,7 +30,7 @@ cpan-meta-checker - command line tool for checking installed distribution integr
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 AUTHOR
 

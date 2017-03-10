@@ -4,7 +4,7 @@ use warnings;
 
 package App::cpanm::meta::checker;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
@@ -388,7 +388,7 @@ App::cpanm::meta::checker - Verify and sanity check your installation verses cpa
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 SYNOPSIS
 
