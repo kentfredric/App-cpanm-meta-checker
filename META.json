@@ -71,7 +71,7 @@
             "Dist::Zilla::Plugin::RemovePrereqs::Provided" : "0",
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::Test::CPAN::Changes" : "0",
-            "Dist::Zilla::Plugin::Test::Compile::PerFile" : "0",
+            "Dist::Zilla::Plugin::Test::Compile::PerFile" : "0.003902",
             "Dist::Zilla::Plugin::Test::EOL" : "0",
             "Dist::Zilla::Plugin::Test::Kwalitee" : "0",
             "Dist::Zilla::Plugin::Test::MinimumVersion" : "0",
@@ -123,7 +123,7 @@
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
             "File::Spec" : "0",
-            "Test::More" : "0.89",
+            "Test::More" : "0",
             "perl" : "5.008"
          }
       }
@@ -427,7 +427,7 @@
                   "path_translator" : "base64_filter",
                   "prefix" : "t/00-compile",
                   "skip" : [],
-                  "test_template" : "01-basic.t.tpl",
+                  "test_template" : "02-raw-require.t.tpl",
                   "xt_mode" : null
                }
             },

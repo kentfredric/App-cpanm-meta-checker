@@ -56,7 +56,7 @@ do { my $x = {
                                       'Dist::Zilla::Plugin::RemovePrereqs::Provided' => '0',
                                       'Dist::Zilla::Plugin::RunExtraTests' => '0',
                                       'Dist::Zilla::Plugin::Test::CPAN::Changes' => '0',
-                                      'Dist::Zilla::Plugin::Test::Compile::PerFile' => '0',
+                                      'Dist::Zilla::Plugin::Test::Compile::PerFile' => '0.003902',
                                       'Dist::Zilla::Plugin::Test::EOL' => '0',
                                       'Dist::Zilla::Plugin::Test::Kwalitee' => '0',
                                       'Dist::Zilla::Plugin::Test::MinimumVersion' => '0',
@@ -108,7 +108,7 @@ do { my $x = {
                    'requires' => {
                                    'ExtUtils::MakeMaker' => '0',
                                    'File::Spec' => '0',
-                                   'Test::More' => '0.89',
+                                   'Test::More' => '0',
                                    'perl' => '5.008'
                                  }
                  }
