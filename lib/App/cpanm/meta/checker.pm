@@ -5,6 +5,8 @@ use utf8;
 
 package App::cpanm::meta::checker;
 
+our $VERSION = '0.001002';
+
 # ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
 # AUTHORITY

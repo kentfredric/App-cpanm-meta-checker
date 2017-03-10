@@ -6,6 +6,8 @@ use utf8;
 
 package App::cpan::meta::checker::_main;
 
+our $VERSION = '0.001002';
+
 # PODNAME: cpan-meta-checker
 
 # ABSTRACT: command line tool for checking installed distribution integrity

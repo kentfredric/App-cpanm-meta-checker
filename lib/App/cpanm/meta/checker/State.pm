@@ -5,6 +5,8 @@ use utf8;
 
 package App::cpanm::meta::checker::State;
 
+our $VERSION = '0.001002';
+
 # ABSTRACT: Shared state for a single test run
 
 # AUTHORITY

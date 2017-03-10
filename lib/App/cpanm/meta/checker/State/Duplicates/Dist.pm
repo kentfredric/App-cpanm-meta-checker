@@ -5,6 +5,8 @@ use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates::Dist;
 
+our $VERSION = '0.001002';
+
 # ABSTRACT: State information for recording seen versions of a single dist
 
 # AUTHORITY

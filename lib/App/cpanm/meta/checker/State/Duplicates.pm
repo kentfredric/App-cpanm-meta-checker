@@ -5,6 +5,8 @@ use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates;
 
+our $VERSION = '0.001002';
+
 # ABSTRACT: Data tracking for duplicate distribution meta-data
 
 # AUTHORITY
