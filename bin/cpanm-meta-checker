@@ -5,7 +5,7 @@ use warnings;
 
 package App::cpan::meta::checker::_main;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # PODNAME: cpan-meta-checker
 

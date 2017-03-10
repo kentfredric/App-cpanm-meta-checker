@@ -4,7 +4,7 @@ App::cpanm::meta::checker - Verify and sanity check your installation verses cpa
 
 # VERSION
 
-version 0.001002
+version 0.001003
 
 # SYNOPSIS
 
