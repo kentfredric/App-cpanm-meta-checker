@@ -5,21 +5,12 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Test::More 1.302073
 
  [Added / develop requires]
- - Dist::Zilla 5
- - Dist::Zilla::Plugin::Bootstrap::lib
- - Dist::Zilla::Plugin::ExecDir
- - Dist::Zilla::Plugin::Git::Contributors 0.006
- - Dist::Zilla::Plugin::Prereqs::AuthorDeps
- - Dist::Zilla::Plugin::PruneFiles
- - Dist::Zilla::Plugin::Test::EOL
  - English
- - Software::License::Perl_5
  - Test::EOL
  - Test::MinimumVersion
  - Test::More 0.96
 
  [Changed / develop requires]
- - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.012001 → 2.025021
  - Test::Kwalitee 1.12 → 1.21
 

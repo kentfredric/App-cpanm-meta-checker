@@ -8,15 +8,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Test::More 1.302073
 
  [Added / develop requires]
- - Dist::Zilla 5
- - Dist::Zilla::Plugin::Bootstrap::lib
- - Dist::Zilla::Plugin::ExecDir
- - Dist::Zilla::Plugin::Git::Contributors 0.006
- - Dist::Zilla::Plugin::Prereqs::AuthorDeps
- - Dist::Zilla::Plugin::PruneFiles
- - Dist::Zilla::Plugin::Test::EOL
  - English
- - Software::License::Perl_5
  - Test::EOL
  - Test::MinimumVersion
  - Test::More 0.96
@@ -32,7 +24,6 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - ExtUtils::MakeMaker 6.30 → 0
 
  [Changed / develop requires]
- - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.012001 → 2.025021
  - Test::Kwalitee 1.12 → 1.21
 
