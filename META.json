@@ -92,7 +92,7 @@
             "Test::Pod::Coverage" : "1.08"
          },
          "suggests" : {
-            "Dist::Zilla::App::Command::bakeini" : "0.001000",
+            "Dist::Zilla::App::Command::bakeini" : "0.002006",
             "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.025021"
          }
       },
@@ -823,13 +823,14 @@
             "config" : {
                "Dist::Zilla::Plugin::Prereqs::Recommend::MatchInstalled" : {
                   "applyto_map" : [
-                     "develop.requires = develop.requires"
+                     "develop.suggests = develop.suggests"
                   ],
                   "applyto_phase" : [
                      "develop"
                   ],
                   "modules" : [
-                     "Dist::Zilla::PluginBundle::Author::KENTNL"
+                     "Dist::Zilla::PluginBundle::Author::KENTNL",
+                     "Dist::Zilla::App::Command::bakeini"
                   ],
                   "source_relation" : "requires",
                   "target_relation" : "recommends"
