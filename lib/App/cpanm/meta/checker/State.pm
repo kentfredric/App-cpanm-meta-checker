@@ -1,10 +1,11 @@
-use 5.008;    # utf8
+use 5.006;    # our
 use strict;
 use warnings;
-use utf8;
 
 package App::cpanm::meta::checker::State;
-$App::cpanm::meta::checker::State::VERSION = '0.001001';
+
+our $VERSION = '0.001002';
+
 # ABSTRACT: Shared state for a single test run
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -236,7 +237,7 @@ App::cpanm::meta::checker::State - Shared state for a single test run
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 METHODS
 
@@ -302,11 +303,11 @@ Read the content from C<./foo/bar/baz> and check its consistency.
 
 =head1 AUTHOR
 
-Kent Fredric <kentfredric@gmail.com>
+Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

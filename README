@@ -1,181 +1,42 @@
-NAME
-    App::cpanm::meta::checker - Verify and sanity check your installation
-    verses cpanm meta files
+App::cpanm::meta::checker
 
-VERSION
-    version 0.001001
+"cpanm" installs a few auxiliary files:
 
-SYNOPSIS
-        cpanm-meta-checker --all --verbose
+    $SITELIB/.meta/DISTNAME-DISTVERSION/MYMETA.json
+    $SITELIB/.meta/DISTNAME-DISTVERSION/install.json
 
-DESCRIPTION
-    "cpanm" installs a few auxiliary files:
+These files describe several things, such as dependencies declared by
+upstream, and sniffed extra context.
 
-        $SITELIB/.meta/DISTNAME-DISTVERSION/MYMETA.json
-        $SITELIB/.meta/DISTNAME-DISTVERSION/install.json
+This tool exists to read those files, and verify that their dependencies
+are still holding true, that no new conflicting dependencies have been
+installed and are silently sitting there broken.
 
-    These files describe several things, such as dependencies declared by
-    upstream, and sniffed extra context.
+Also, as "cpanm"'s auxiliary files are really a prototype for what may
+eventually become a tool-chain standard, this tool is also a prototype
+for a tool-chain standard checker.
 
-    This tool exists to read those files, and verify that their dependencies
-    are still holding true, that no new conflicting dependencies have been
-    installed and are silently sitting there broken.
+INSTALLATION
 
-    Also, as "cpanm"'s auxiliary files are really a prototype for what may
-    eventually become a tool-chain standard, this tool is also a prototype
-    for a tool-chain standard checker.
+This is a Perl module distribution. It should be installed with whichever
+tool you use to manage your installation of Perl, e.g. any of
 
-METHODS
-  "all_search_dirs"
-      my @dirs =  $checker->all_search_dirs
+  cpanm .
+  cpan  .
+  cpanp -i .
 
-    See "search_dirs"
+Consult http://www.cpan.org/modules/INSTALL.html for further instruction.
+Should you wish to install this module manually, the procedure is
 
-  "all_search_dir_child"
-      my @items = $checker->all_search_dir_child( 'some','path' );
-
-    Returns all paths in all "search_dirs" that exist with the given name.
-
-      search_dirs = [ 'foo', 'bar' ]
-      all_search_dir_child('baz')
-        → foo/baz → exists(Y) → output
-        → bar/baz → exists(N) → omitted
-
-  "all_search_dir_children"
-      my @items = $checker->all_search_dir_children();
-
-    Returns all child nodes of all "search_dirs"
-
-      search_dirs = ['foo','bar' ]
-      all_search_dir_children()
-        → (
-            path( 'foo' )->children,
-            path( 'bar' )->children,
-          )
-
-  "check_path"
-        ->check_path('./foo/bar/baz');
-
-    Read the content from "./foo/bar/baz" and check its consistency.
-
-  "check_release"
-        ->check_release('Moose-2.000000')
-
-    Read the meta-data for the exact release stated and perform checks on
-    it.
-
-  "check_distname"
-        ->check_distname('Moose')
-
-    Check meta-data for any dist(s) named "Moose"
-
-    Note: There may be directories residual from past installs.
-
-  "check_all"
-        ->check_all
-
-    Check meta-data for all installed distributions.
-
-  "run_command"
-      $checker->run_command;
-
-    Execute test mode defined by "mode"
-
-  "new_from_command"
-    This is the command interface invoked by "cpan-meta-checker" that cherry
-    picks options with "Getopt".
-
-      my $instance = App::cpanm::meta::checker->new(
-        %constructor_defaults
-      );
-
-    This creates an instance where %constructor_defaults are overridden by
-    relevant command line arguments.
-
-   "Command Line Arguments"
-    *   "-s|--sort" - Process "dist" directories in alphanumeric order.
-
-    *   "-A|--all" - Check All distributions on the system
-
-    *   "--verbose" - Turn on extra verbosity
-
-        This presently just prepends the "list" test to the test list.
-
-    *   "--test foo" - Test only test "foo"
-
-        May be invoked multiple times to define all tests wanted.
-
-          --test check_develop_requires --test check_runtime_suggests
-
-ATTRIBUTES
-  "search_dirs"
-  "tests"
-    The tests to execute.
-
-    Default:
-
-        [
-          'list_empty',               'list_duplicates',        'check_runtime_requires',
-          'check_runtime_recommends', 'check_runtime_suggests', 'check_runtime_conflicts',
-        ];
-
-  "sorted"
-    Iteration order of ".meta" directory.
-
-    "false" - not sorted
-    "true" - alphanumerically sorted
-
-  "mode"
-    Defines execution mode:
-
-    "all" - Perform tests on all available distributions
-
-DEFAULT TEST SET
-        list_empty
-        list_duplicates
-        check_runtime_requires
-        check_runtime_recommends
-        check_runtime_suggests
-        check_runtime_conflicts
-
-AVAILABLE TEST SET
-  "list_duplicates"
-    For now, it includes output about every instance where there are more
-    than one set of meta files.
-
-    This occurs, because installing a new version of something doesn't purge
-    the data ( or all the files ) of the old one.
-
-  "list"
-    This lists all distributions seen.
-
-  "list_empty"
-    This lists distributions that have a directory for a meta file, but have
-    no meta file in them. ( Rare )
-
-  "list_nonempty"
-    This lists distributions that have meta files.
-
-  "check_PHASE_TYPE"
-    There is a check for each combination of:
-
-        PHASE: configure build runtime test develop
-        TYPE:  requires recommends suggests conflicts
-
-    Each checks the meta-data for conforming dependencies.
-
-    For instance:
-
-        check_runtime_requires # Report Runtime requirements that are unsatisfied
-        check_develop_requires # Report Develop requiremetns that are unsatisifed
-
-AUTHOR
-    Kent Fredric <kentfredric@gmail.com>
+  perl Makefile.PL
+  make
+  make test
+  make install
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2014 by Kent Fredric
-    <kentfredric@gmail.com>.
 
-    This is free software; you can redistribute it and/or modify it under
-    the same terms as the Perl 5 programming language system itself.
+This software is copyright (c) 2017 by Kent Fredric
+<kentfredric@gmail.com>.
 
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.

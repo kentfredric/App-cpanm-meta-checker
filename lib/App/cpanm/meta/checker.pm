@@ -1,10 +1,11 @@
-use 5.008;    # utf8
+use 5.006;    # our
 use strict;
 use warnings;
-use utf8;
 
 package App::cpanm::meta::checker;
-$App::cpanm::meta::checker::VERSION = '0.001001';
+
+our $VERSION = '0.001002';
+
 # ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -129,7 +130,7 @@ sub all_search_dirs {
 
 sub all_search_dir_child {
   my ( $self, @childpath ) = @_;
-  my @answers = grep { -e $_ }
+  my @answers = grep { -e }
     map { path($_)->child(@childpath) } @{ $self->search_dirs };
   return @answers unless $self->sorted;
   return @{ [ sort @answers ] };
@@ -387,7 +388,7 @@ App::cpanm::meta::checker - Verify and sanity check your installation verses cpa
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 SYNOPSIS
 
@@ -588,11 +589,11 @@ For instance:
 
 =head1 AUTHOR
 
-Kent Fredric <kentfredric@gmail.com>
+Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
