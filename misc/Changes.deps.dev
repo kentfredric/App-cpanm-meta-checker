@@ -11,6 +11,7 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Test::More 0.96
 
  [Changed / develop requires]
+ - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.012001 → 2.025021
  - Test::Kwalitee 1.12 → 1.21
 
