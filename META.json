@@ -20,7 +20,7 @@
          },
          "requires" : {
             "ExtUtils::MakeMaker" : "0",
-            "perl" : "5.008"
+            "perl" : "5.006"
          }
       },
       "develop" : {
@@ -108,7 +108,7 @@
             "Getopt::Long" : "0",
             "Moo" : "1.000008",
             "Path::Tiny" : "0",
-            "perl" : "5.008",
+            "perl" : "5.006",
             "strict" : "0",
             "warnings" : "0"
          }
@@ -123,7 +123,7 @@
             "ExtUtils::MakeMaker" : "0",
             "File::Spec" : "0",
             "Test::More" : "0",
-            "perl" : "5.008"
+            "perl" : "5.006"
          }
       }
    },
