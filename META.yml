@@ -136,6 +136,17 @@ x_Dist_Zilla:
       name: '@Author::KENTNL/MetaData::BuiltWith'
       version: '1.004005'
     -
+      class: Dist::Zilla::Plugin::Git::Contributors
+      config:
+        Dist::Zilla::Plugin::Git::Contributors:
+          'git --version': 2.11.1
+          include_authors: 0
+          include_releaser: 0
+          order_by: name
+          paths: []
+      name: '@Author::KENTNL/Git::Contributors'
+      version: '0.029'
+    -
       class: Dist::Zilla::Plugin::Git::GatherDir
       config:
         Dist::Zilla::Plugin::GatherDir:

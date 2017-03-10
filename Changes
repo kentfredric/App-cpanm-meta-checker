@@ -1,10 +1,10 @@
 Release history for App-cpanm-meta-checker
 
-0.001002 2017-03-10T15:49:53Z
+0.001002 2017-03-10T15:52:28Z
  [Dependencies::Stats]
  - Dependencies changed since 0.001001, see misc/*.deps* for details
  - configure: +1 ↓1 (recommends: ↑1)
- - develop: +10 ↑3 (recommends: +1)
+ - develop: +11 ↑3 (recommends: +1)
  - test: +2 -3 (recommends: ↑3 -1)
 
 0.001001 2014-03-30T20:31:50Z
