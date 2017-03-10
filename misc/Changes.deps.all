@@ -32,6 +32,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - ExtUtils::MakeMaker 6.30 → 0
 
  [Changed / develop requires]
+ - Dist::Zilla::Plugin::Git::NextRelease 0 → 0.004000
  - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.012001 → 2.025021
  - Test::Kwalitee 1.12 → 1.21
