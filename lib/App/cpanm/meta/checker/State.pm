@@ -4,7 +4,9 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker::State;
-$App::cpanm::meta::checker::State::VERSION = '0.001002';
+
+our $VERSION = '0.001002';
+
 # ABSTRACT: Shared state for a single test run
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY

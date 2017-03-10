@@ -4,7 +4,9 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates::Dist;
-$App::cpanm::meta::checker::State::Duplicates::Dist::VERSION = '0.001002';
+
+our $VERSION = '0.001002';
+
 # ABSTRACT: State information for recording seen versions of a single dist
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY

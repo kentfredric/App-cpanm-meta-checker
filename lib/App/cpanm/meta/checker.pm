@@ -4,7 +4,9 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker;
-$App::cpanm::meta::checker::VERSION = '0.001002';
+
+our $VERSION = '0.001002';
+
 # ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY

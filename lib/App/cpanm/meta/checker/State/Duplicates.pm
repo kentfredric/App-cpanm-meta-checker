@@ -4,7 +4,9 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates;
-$App::cpanm::meta::checker::State::Duplicates::VERSION = '0.001002';
+
+our $VERSION = '0.001002';
+
 # ABSTRACT: Data tracking for duplicate distribution meta-data
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
