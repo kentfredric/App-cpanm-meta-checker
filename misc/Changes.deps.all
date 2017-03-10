@@ -25,6 +25,10 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Test::MinimumVersion
  - Test::More 0.96
 
+ [Added / develop suggests]
+ - Dist::Zilla::App::Command::bakeini 0.001000
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.025021
+
  [Added / test requires]
  - File::Spec
  - perl 5.008
@@ -49,6 +53,9 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  [Removed / develop requires]
  - Dist::Zilla::Plugin::EOLTests
  - Dist::Zilla::Plugin::MetaYAML
+
+ [Removed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL::Lite v1.3.0
 
  [Removed / test recommends]
  - CPAN::Meta::Requirements 2.120900
