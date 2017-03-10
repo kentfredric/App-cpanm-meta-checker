@@ -1,7 +1,6 @@
 use 5.008;    # utf8
 use strict;
 use warnings;
-use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates;
 
