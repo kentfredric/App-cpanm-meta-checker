@@ -44,6 +44,10 @@ for my $wd (qw( fatlib lib )) {
       warn "Found .so file $it\n";
       next;
     }
+    if ( $it->basename !~ /\.(pl|pm|pmc)\z/ ) {
+      warn "Skipped non-pm/pl/pmc $it";
+      next;
+    }
     print "$it\n";
     system( 'perlstrip', $it );
   }
