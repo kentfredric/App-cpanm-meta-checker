@@ -48,12 +48,16 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  [Changed / develop requires]
  - Dist::Zilla::Plugin::Git::NextRelease 0 → 0.004000
  - Dist::Zilla::Plugin::MetaData::BuiltWith 0 → 1.004000
+ - Dist::Zilla::Plugin::Test::Compile::PerFile 0 → 0.003902
  - Test::Kwalitee 1.12 → 1.21
 
  [Changed / test recommends]
  - CPAN::Meta 0 → 2.120900
  - ExtUtils::MakeMaker 6.94 → 7.00
  - Test::More 1.001003 → 0.99
+
+ [Changed / test requires]
+ - Test::More 0.89 → 0
 
  [Removed / develop requires]
  - Dist::Zilla::Plugin::EOLTests
