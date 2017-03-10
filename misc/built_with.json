@@ -4,6 +4,7 @@
       "CPAN::Meta::Check" : "0.014",
       "Carp" : "1.42",
       "Dist::Zilla" : "6.009",
+      "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.005004",
       "Dist::Zilla::Plugin::Authority" : "1.009",
       "Dist::Zilla::Plugin::AutoPrereqs" : "6.009",
       "Dist::Zilla::Plugin::Bootstrap::lib" : "1.001001",

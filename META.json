@@ -29,6 +29,7 @@
          },
          "requires" : {
             "Dist::Zilla" : "5",
+            "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes" : "0.004002",
             "Dist::Zilla::Plugin::Authority" : "1.006",
             "Dist::Zilla::Plugin::AutoPrereqs" : "0",
             "Dist::Zilla::Plugin::Bootstrap::lib" : "0",
@@ -568,6 +569,11 @@
             },
             "name" : "@Author::KENTNL/MakeMaker",
             "version" : "6.009"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::KENTNL::RecommendFixes",
+            "name" : "@Author::KENTNL/Author::KENTNL::RecommendFixes",
+            "version" : "0.005004"
          },
          {
             "class" : "Dist::Zilla::Plugin::ReadmeFromPod",
