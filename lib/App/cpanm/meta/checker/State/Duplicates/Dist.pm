@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker::State::Duplicates::Dist;
-$App::cpanm::meta::checker::State::Duplicates::Dist::VERSION = '0.001001';
+$App::cpanm::meta::checker::State::Duplicates::Dist::VERSION = '0.001002';
 # ABSTRACT: State information for recording seen versions of a single dist
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -87,7 +87,7 @@ App::cpanm::meta::checker::State::Duplicates::Dist - State information for recor
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 METHODS
 
@@ -121,7 +121,7 @@ Kent Fredric <kentfredric@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

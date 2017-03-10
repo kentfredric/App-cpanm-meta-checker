@@ -1,0 +1,56 @@
+This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
+
+0.001002
+ [Added / configure requires]
+ - perl 5.008
+
+ [Added / develop recommends]
+ - Test::More 1.302073
+
+ [Added / develop requires]
+ - English
+ - Test::EOL
+ - Test::MinimumVersion
+ - Test::More 0.96
+
+ [Added / test requires]
+ - File::Spec
+ - perl 5.008
+
+ [Changed / configure recommends]
+ - ExtUtils::MakeMaker 6.94 → 7.24
+
+ [Changed / configure requires]
+ - ExtUtils::MakeMaker 6.30 → 0
+
+ [Changed / develop requires]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.012001 → 2.025021
+ - Test::Kwalitee 1.12 → 1.21
+
+ [Changed / test recommends]
+ - CPAN::Meta 0 → 2.120900
+ - ExtUtils::MakeMaker 6.94 → 7.24
+ - Test::More 1.001003 → 1.302073
+
+ [Removed / test recommends]
+ - CPAN::Meta::Requirements 2.120900
+
+ [Removed / test requires]
+ - File::Spec::Functions
+ - List::Util
+ - version
+
+0.001001 2014-03-30T20:31:50Z
+ [Added / develop requires]
+ - Pod::Coverage::TrustPod
+ - Test::Pod::Coverage 1.08
+
+ [Changed / configure recommends]
+ - ExtUtils::MakeMaker 6.90 → 6.94
+
+ [Changed / develop requires]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.012000 → 2.012001
+
+ [Changed / test recommends]
+ - ExtUtils::MakeMaker 6.90 → 6.94
+ - Test::More 1.001002 → 1.001003

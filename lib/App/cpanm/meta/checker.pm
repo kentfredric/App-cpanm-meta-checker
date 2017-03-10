@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 
 package App::cpanm::meta::checker;
-$App::cpanm::meta::checker::VERSION = '0.001001';
+$App::cpanm::meta::checker::VERSION = '0.001002';
 # ABSTRACT: Verify and sanity check your installation verses cpanm meta files
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
@@ -387,7 +387,7 @@ App::cpanm::meta::checker - Verify and sanity check your installation verses cpa
 
 =head1 VERSION
 
-version 0.001001
+version 0.001002
 
 =head1 SYNOPSIS
 
@@ -592,7 +592,7 @@ Kent Fredric <kentfredric@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
