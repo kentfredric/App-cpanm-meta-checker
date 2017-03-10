@@ -5,7 +5,13 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Test::More 1.302073
 
  [Added / develop requires]
+ - Dist::Zilla 5
+ - Dist::Zilla::Plugin::Bootstrap::lib
+ - Dist::Zilla::Plugin::ExecDir
+ - Dist::Zilla::Plugin::Prereqs::AuthorDeps
+ - Dist::Zilla::Plugin::PruneFiles
  - English
+ - Software::License::Perl_5
  - Test::EOL
  - Test::MinimumVersion
  - Test::More 0.96
