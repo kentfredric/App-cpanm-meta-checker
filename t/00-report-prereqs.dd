@@ -20,6 +20,7 @@ do { my $x = {
                                       'Dist::Zilla::Plugin::AutoPrereqs' => '0',
                                       'Dist::Zilla::Plugin::Bootstrap::lib' => '0',
                                       'Dist::Zilla::Plugin::ConfirmRelease' => '0',
+                                      'Dist::Zilla::Plugin::CopyFilesFromBuild' => '0',
                                       'Dist::Zilla::Plugin::ExecDir' => '0',
                                       'Dist::Zilla::Plugin::Git::Check' => '0',
                                       'Dist::Zilla::Plugin::Git::Commit' => '0',
