@@ -4,7 +4,7 @@ use warnings;
 
 package App::cpanm::meta::checker::State;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: Shared state for a single test run
 

@@ -1,6 +1,8 @@
 Release history for App-cpanm-meta-checker
 
 {{$NEXT}}
+
+0.001002 2017-03-10T17:36:43Z c739b30
  - Bugfix: Avoid test failures with -Ddefault_inc_excludes_dot
 
  [Dependencies::Stats]

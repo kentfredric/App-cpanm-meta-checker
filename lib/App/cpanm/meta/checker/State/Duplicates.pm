@@ -4,7 +4,7 @@ use warnings;
 
 package App::cpanm::meta::checker::State::Duplicates;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: Data tracking for duplicate distribution meta-data
 

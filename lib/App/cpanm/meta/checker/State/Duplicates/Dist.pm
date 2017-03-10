@@ -4,7 +4,7 @@ use warnings;
 
 package App::cpanm::meta::checker::State::Duplicates::Dist;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: State information for recording seen versions of a single dist
 
