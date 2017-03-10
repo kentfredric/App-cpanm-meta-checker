@@ -1,8 +1,19 @@
-0.001001
- [Changed / configure recommends]
- - ExtUtils::MakeMaker 6.90 → 6.94
+This file contains changes in REQUIRED dependencies for standard CPAN phases (configure/build/runtime/test)
 
- [Changed / test recommends]
- - ExtUtils::MakeMaker 6.90 → 6.94
- - Test::More 1.001002 → 1.001003
+0.001002
+ [Added / configure requires]
+ - perl 5.008
 
+ [Added / test requires]
+ - File::Spec
+ - perl 5.008
+
+ [Changed / configure requires]
+ - ExtUtils::MakeMaker 6.30 → 0
+
+ [Removed / test requires]
+ - File::Spec::Functions
+ - List::Util
+ - version
+
+0.001001 2014-03-30T20:31:50Z
