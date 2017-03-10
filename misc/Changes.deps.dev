@@ -9,6 +9,7 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
  - Dist::Zilla::Plugin::Bootstrap::lib
  - Dist::Zilla::Plugin::ExecDir
  - Dist::Zilla::Plugin::Git::Contributors 0.006
+ - Dist::Zilla::Plugin::MetaYAML::Minimal
  - Dist::Zilla::Plugin::Prereqs::AuthorDeps
  - Dist::Zilla::Plugin::PruneFiles
  - Dist::Zilla::Plugin::Test::EOL
@@ -26,6 +27,7 @@ This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and 
 
  [Removed / develop requires]
  - Dist::Zilla::Plugin::EOLTests
+ - Dist::Zilla::Plugin::MetaYAML
 
 0.001001 2014-03-30T20:31:50Z
  [Added / develop requires]

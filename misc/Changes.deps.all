@@ -12,6 +12,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  - Dist::Zilla::Plugin::Bootstrap::lib
  - Dist::Zilla::Plugin::ExecDir
  - Dist::Zilla::Plugin::Git::Contributors 0.006
+ - Dist::Zilla::Plugin::MetaYAML::Minimal
  - Dist::Zilla::Plugin::Prereqs::AuthorDeps
  - Dist::Zilla::Plugin::PruneFiles
  - Dist::Zilla::Plugin::Test::EOL
@@ -44,6 +45,7 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
 
  [Removed / develop requires]
  - Dist::Zilla::Plugin::EOLTests
+ - Dist::Zilla::Plugin::MetaYAML
 
  [Removed / test recommends]
  - CPAN::Meta::Requirements 2.120900
