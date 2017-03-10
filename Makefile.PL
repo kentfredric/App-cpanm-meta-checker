@@ -27,7 +27,6 @@ my %WriteMakefileArgs = (
     "Moo" => "1.000008",
     "Path::Tiny" => 0,
     "strict" => 0,
-    "utf8" => 0,
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
@@ -53,7 +52,6 @@ my %FallbackPrereqs = (
   "Path::Tiny" => 0,
   "Test::More" => 0,
   "strict" => 0,
-  "utf8" => 0,
   "warnings" => 0
 );
 
