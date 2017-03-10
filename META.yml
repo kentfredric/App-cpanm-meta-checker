@@ -342,6 +342,10 @@ x_Dist_Zilla:
       name: '@Author::KENTNL/BundleDevelRequires'
       version: '6.009'
     -
+      class: Dist::Zilla::Plugin::Prereqs::AuthorDeps
+      name: '@Author::KENTNL/Prereqs::AuthorDeps'
+      version: '0.006'
+    -
       class: Dist::Zilla::Plugin::MinimumPerl
       name: '@Author::KENTNL/MinimumPerl'
       version: '1.006'
